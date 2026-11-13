@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Asuraphong Apps</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="แอปมือถือสำหรับธุรกิจเล็ก เริ่มจากแอปหอพักที่ใช้ฟรีได้จริง ข้อมูลอยู่ใน Google ของคุณเอง">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* เลย์เอาต์: หน้าเดียวเลื่อนลง หัวกระจกติดบน → ฮีโร่ + มือถือจำลอง → แอป → แพ็กเกจ → สั่งทำตามบรีฟ → คำถาม → ติดต่อ
+   ธีมเดียวกับแอปแพ็กเกจโปร: พื้นพาสเทล การ์ดกระจกฝ้า ม่วงคราม */
+:root{
+  --bg:#f3f4fb; --ink:#1c1f3f; --muted:#5f6488; --line:rgba(104,112,180,.2);
+  --glass:rgba(255,255,255,.62); --glass-b:rgba(255,255,255,.88); --solid:#ffffff;
+  --acc:#5b5bd6; --acc2:#8b5cf6; --acc-soft:#ecebff; --on-acc:#ffffff; --pink:#d9468f;
+  --ok:#1a7f4b; --ok-bg:#e3f4ea; --warn:#a85300; --warn-bg:#fff3df; --bad:#b42318; --bad-bg:#fdeceb;
+  --a1:#d9d6ff; --a2:#cfe6ff; --a3:#ffe0ef; --a4:#d8f3ee;
+  --shadow:0 1px 2px rgba(40,40,110,.05),0 12px 34px rgba(60,60,150,.09);
+  --f-head:"Anuphan","IBM Plex Sans Thai",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Thai","Anuphan",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --r:22px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12132a; --ink:#ecebff; --muted:#a7aad0; --line:rgba(170,175,240,.18);
+  --glass:rgba(30,32,66,.62); --glass-b:rgba(150,155,230,.22); --solid:#1b1d3d;
+  --acc:#8f8cf7; --acc2:#b195f8; --acc-soft:#2a2a5c; --on-acc:#ffffff; --pink:#f07ab4;
+  --ok:#5fd39a; --ok-bg:#153626; --warn:#f3b46a; --warn-bg:#3a2a12; --bad:#ff8a80; --bad-bg:#3d1a19;
+  --a1:#2c2a6b; --a2:#163a5e; --a3:#4a1f3c; --a4:#123d3a; --shadow:0 12px 34px rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12132a; --ink:#ecebff; --muted:#a7aad0; --line:rgba(170,175,240,.18);
+  --glass:rgba(30,32,66,.62); --glass-b:rgba(150,155,230,.22); --solid:#1b1d3d;
+  --acc:#8f8cf7; --acc2:#b195f8; --acc-soft:#2a2a5c; --on-acc:#ffffff; --pink:#f07ab4;
+  --ok:#5fd39a; --ok-bg:#153626; --warn:#f3b46a; --warn-bg:#3a2a12; --bad:#ff8a80; --bad-bg:#3d1a19;
+  --a1:#2c2a6b; --a2:#163a5e; --a3:#4a1f3c; --a4:#123d3a; --shadow:0 12px 34px rgba(0,0,0,.35); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:-20vmax;z-index:-1;pointer-events:none;
+  background:radial-gradient(38vmax 30vmax at 12% 6%,var(--a1) 0,transparent 60%),radial-gradient(34vmax 30vmax at 92% 16%,var(--a2) 0,transparent 60%),
+  radial-gradient(40vmax 34vmax at 72% 96%,var(--a3) 0,transparent 62%),radial-gradient(30vmax 26vmax at 4% 78%,var(--a4) 0,transparent 60%)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--glass)}
+h1,h2,h3{font-family:var(--f-head);line-height:1.2;margin:0;text-wrap:balance;letter-spacing:-.005em}
+h1{font-size:clamp(2rem,5.2vw,3.3rem);font-weight:700}
+h2{font-size:clamp(1.6rem,3.4vw,2.25rem);font-weight:700}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:0}
+a{color:var(--acc)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.muted{color:var(--muted)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:600;letter-spacing:.06em;color:var(--acc);text-transform:uppercase}
+.glass{background:var(--glass);-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);border:1px solid var(--glass-b);border-radius:var(--r);box-shadow:var(--shadow)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:14px;border:1px solid transparent;font:600 1rem var(--f-head);cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .2s}
+.btn:active{transform:scale(.97)}
+.btn-acc{background:linear-gradient(135deg,var(--acc),var(--acc2));color:var(--on-acc);box-shadow:0 8px 22px color-mix(in srgb,var(--acc) 35%,transparent)}
+.btn-line{background:var(--glass);border-color:var(--glass-b);color:var(--ink)}
+.btn svg{width:20px;height:20px}
+.ic{width:22px;height:22px;flex:none}
+section{padding-block:72px}
+.sec-head{display:flex;flex-direction:column;gap:10px;max-width:640px;margin-bottom:32px}
+
+/* หัวเว็บ */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--glass);-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);border-bottom:1px solid var(--glass-b)}
+.top-in{display:flex;align-items:center;gap:16px;justify-content:space-between;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);min-width:0}
+.mark{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;box-shadow:0 6px 16px color-mix(in srgb,var(--acc) 35%,transparent);flex:none}
+.mark svg{width:22px;height:22px}
+.brand b{font:700 1.15rem var(--f-head);white-space:nowrap}
+.nav{display:flex;gap:4px}
+.nav a{color:var(--muted);text-decoration:none;font-weight:500;padding:8px 12px;border-radius:10px;font-size:.95rem}
+.nav a:hover{color:var(--ink);background:var(--acc-soft)}
+.top .btn{min-height:42px;padding:0 16px;font-size:.95rem}
+@media (max-width:860px){.nav{display:none}}
+
+/* ฮีโร่ */
+.hero{padding-block:56px 40px}
+.hero-in{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.hero-txt{display:flex;flex-direction:column;gap:22px;min-width:0}
+.hero h1 em{font-style:normal;background:linear-gradient(120deg,var(--acc),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:1.12rem;color:var(--muted);max-width:34em}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.trust{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.9rem;color:var(--muted)}
+.trust span{display:inline-flex;align-items:center;gap:6px}
+.trust svg{width:18px;height:18px;color:var(--ok)}
+
+/* มือถือจำลอง */
+.phone{justify-self:center;width:300px;max-width:100%;border-radius:40px;padding:12px;background:linear-gradient(160deg,#2b2d5a,#14152e);box-shadow:0 30px 60px rgba(40,40,110,.28),inset 0 0 0 2px rgba(255,255,255,.08);position:relative}
+.screen{border-radius:30px;overflow:hidden;background:#f3f4fb;color:#1c1f3f;display:flex;flex-direction:column;gap:10px;padding:14px 12px 16px;position:relative;font-family:var(--f-head)}
+.screen::before{content:"";position:absolute;inset:-40px;background:radial-gradient(160px 120px at 10% 0,#d9d6ff,transparent 70%),radial-gradient(160px 140px at 100% 30%,#cfe6ff,transparent 70%),radial-gradient(160px 140px at 70% 100%,#ffe0ef,transparent 70%);z-index:0}
+.screen>*{position:relative;z-index:1}
+.s-top{display:flex;align-items:center;gap:8px;font-size:.78rem}
+.s-top i{width:26px;height:26px;border-radius:9px;background:linear-gradient(135deg,#6d6af0,#a77bf3);display:block}
+.s-top b{font-size:.86rem}.s-top em{font-style:normal;font-size:.58rem;font-weight:700;color:#fff;background:linear-gradient(135deg,#6d6af0,#d9468f);border-radius:99px;padding:0 6px;margin-left:4px}
+.s-hero{border-radius:18px;padding:12px;color:#fff;background:linear-gradient(135deg,#4f4fd0,#7c5cf0 55%,#c86bd8)}
+.s-hero small{font-size:.62rem;opacity:.9;display:block}
+.s-hero strong{font-size:1.45rem;display:block;line-height:1.2;font-variant-numeric:tabular-nums}
+.s-bar{height:5px;border-radius:9px;background:rgba(255,255,255,.3);margin:6px 0 2px;overflow:hidden}.s-bar i{display:block;height:100%;width:66%;background:#fff;border-radius:9px}
+.s-hero svg{width:100%;height:38px;display:block;margin-top:4px}
+.s-tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.s-tile{border-radius:15px;padding:9px;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);display:flex;flex-direction:column;gap:5px;font-size:.7rem;min-height:74px}
+.s-tile i{width:24px;height:24px;border-radius:8px;display:block}
+.s-tile b{font-size:.74rem}.s-tile span{color:#5f6488;font-size:.62rem}
+.s-tile .t{display:flex;justify-content:space-between;align-items:center}.s-tile .n{font-size:1rem;font-weight:700;color:#3a3ab8;font-variant-numeric:tabular-nums}
+.g1{background:linear-gradient(135deg,#6d6af0,#a77bf3)}.g2{background:linear-gradient(135deg,#3a7bea,#5bc2f2)}.g3{background:linear-gradient(135deg,#e0559b,#f59aa8)}.g4{background:linear-gradient(135deg,#f0a43a,#f5c26b)}
+.float{position:absolute;z-index:3;display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:.82rem;font-weight:600;white-space:nowrap}
+.float svg{width:18px;height:18px;color:var(--acc)}
+.f1{left:-150px;top:250px}.f2{right:-120px;bottom:70px}
+@media (max-width:1180px){.f1{left:-110px}.f2{right:-60px}}
+@media (max-width:860px){.hero-in{grid-template-columns:1fr}.phone{margin-top:8px}.f1{left:-24px;top:-14px}.f2{right:-14px;bottom:-16px}}
+@media (max-width:420px){.float{display:none}}
+
+/* แถบตัวเลข */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:18px}
+.fact{display:flex;flex-direction:column;gap:2px;padding:6px 10px;min-width:0}
+.fact b{font:700 1.6rem var(--f-head);font-variant-numeric:tabular-nums;color:var(--acc)}
+.fact span{font-size:.88rem;color:var(--muted)}
+@media (max-width:720px){.facts{grid-template-columns:1fr 1fr}}
+
+/* แอป */
+.apps{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.app{display:flex;flex-direction:column;gap:14px;padding:22px;min-width:0;grid-column:span 2;position:relative}
+.app.live{grid-column:span 6;display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:start}
+.app-ic{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;color:#fff;box-shadow:0 8px 18px rgba(40,40,110,.16)}
+.app-ic svg{width:26px;height:26px}
+.app-h{display:flex;align-items:center;gap:14px}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:99px;white-space:nowrap}
+.b-live{background:var(--ok-bg);color:var(--ok)}.b-soon{background:var(--acc-soft);color:var(--acc)}.b-brief{background:var(--warn-bg);color:var(--warn)}
+.feat{display:flex;flex-wrap:wrap;gap:6px}
+.feat span{font-size:.82rem;padding:4px 10px;border-radius:99px;background:var(--acc-soft);color:var(--ink)}
+.app ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+.app li{display:flex;gap:8px;font-size:.95rem;min-width:0}
+.app li svg{width:18px;height:18px;flex:none;color:var(--acc);margin-top:4px}
+.app .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto}
+.app.soon{border-style:dashed}
+.app.add{grid-column:span 4;border:1.5px dashed var(--line);background:transparent;box-shadow:none;align-items:flex-start;justify-content:center}
+@media (max-width:980px){.apps{grid-template-columns:1fr 1fr}.app,.app.live{grid-column:span 1}.app.add{grid-column:1/-1}.app.live{grid-column:1/-1;grid-template-columns:1fr}}
+@media (max-width:620px){.apps{grid-template-columns:1fr}.app ul{grid-template-columns:1fr}}
+
+/* แพ็กเกจ */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+.plan{display:flex;flex-direction:column;gap:16px;padding:26px;min-width:0}
+.plan.pro{background:linear-gradient(160deg,color-mix(in srgb,var(--acc) 92%,#000),color-mix(in srgb,var(--acc2) 92%,#000));color:#fff;border-color:transparent;transform:translateY(-8px)}
+.plan.pro .muted,.plan.pro li{color:rgba(255,255,255,.88)}
+.plan.pro li svg{color:#fff}
+.price{font:700 2rem var(--f-head);font-variant-numeric:tabular-nums;line-height:1.1}
+.price small{font-size:.9rem;font-weight:500;opacity:.85}
+.plan ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;flex:1}
+.plan li{display:flex;gap:8px;font-size:.95rem}
+.plan li svg{width:18px;height:18px;flex:none;color:var(--acc);margin-top:4px}
+.plan li.no{opacity:.55}.plan li.no svg{color:var(--muted)}
+.plan .btn{width:100%}
+.plan.pro .btn{background:#fff;color:#3a3ab8;box-shadow:none}
+@media (max-width:900px){.plans{grid-template-columns:1fr}.plan.pro{transform:none}}
+
+/* สั่งทำตามบรีฟ */
+.brief{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:start}
+.steps{display:flex;flex-direction:column;gap:14px;min-width:0}
+.step{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;padding:16px 18px}
+.step .no{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font:700 1.1rem var(--f-mono);color:var(--acc);background:var(--acc-soft)}
+.step b{display:block;font-family:var(--f-head)}
+.step p{font-size:.93rem;color:var(--muted)}
+form{display:flex;flex-direction:column;gap:16px;padding:24px;min-width:0}
+.f2c{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+label,.lab{font-weight:600;font-size:.93rem}
+.opt{font-weight:400;color:var(--muted)}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--solid);border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;width:100%;min-height:46px}
+textarea{min-height:110px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 16%,transparent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:var(--solid);border-radius:99px;padding:7px 13px;cursor:pointer;font-size:.9rem;user-select:none}
+.chip input{position:absolute;opacity:0;width:1px;height:1px}
+.chip:has(input:checked){border-color:var(--acc);background:var(--acc-soft);color:var(--acc);font-weight:600}
+.chip:has(input:focus-visible){outline:3px solid var(--acc);outline-offset:2px}
+.consent{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:.9rem;color:var(--muted)}
+.consent input{width:20px;height:20px;min-height:0;flex:none;margin-top:3px;accent-color:var(--acc)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.alert{border-radius:12px;padding:12px 14px;font-size:.93rem}
+.small{font-size:.85rem}.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+#track{padding-top:28px}.tpanel{padding:22px;display:flex;flex-direction:column;gap:14px;margin-bottom:16px;max-width:760px;margin-inline:auto}.tpanel h2,.tpanel h3{margin:0}
+.done{padding:20px;display:flex;flex-direction:column;gap:14px}.done-h{display:flex;gap:14px;align-items:center}.tick{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:1.5rem;background:var(--acc);color:var(--on-acc);flex:none}
+.bno{font:700 1.5rem var(--f-head);letter-spacing:.5px}.next{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px}.next li span{display:block;font-size:.88rem;color:var(--muted)}
+.urlbox{padding:10px 12px;border-radius:12px;border:1px solid var(--glass-b);overflow-wrap:anywhere;font-size:.85rem}.acts{display:flex;flex-wrap:wrap;gap:8px}
+.btn-ok{background:#06c755;color:#fff}.btn-ok svg{width:20px;height:20px}
+.nowst{display:flex;flex-direction:column;gap:2px;padding:14px 16px;border-radius:14px;background:color-mix(in srgb,var(--acc) 14%,transparent);border:1px solid color-mix(in srgb,var(--acc) 40%,transparent)}
+.nowst b{font:700 1.35rem var(--f-head);color:var(--acc)}.nowst.off{filter:grayscale(1)}
+.devmsg{padding:12px 14px;border-left:4px solid var(--acc);border-radius:8px;background:var(--glass)}
+.tsteps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}.tsteps li{display:flex;gap:12px;align-items:center;position:relative;padding:6px 0;color:var(--muted)}
+.tsteps li i{width:16px;height:16px;border-radius:50%;border:2.5px solid var(--glass-b);flex:none;z-index:1;background:var(--glass)}
+.tsteps li:not(:last-child)::after{content:"";position:absolute;left:7px;top:22px;bottom:-6px;width:2.5px;background:var(--glass-b)}
+.tsteps li.on i{background:var(--acc);border-color:var(--acc)}.tsteps li.on::after{background:var(--acc)}.tsteps li.cur i{border-color:var(--acc);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 25%,transparent)}.tsteps li.cur{color:var(--ink);font-weight:700}
+.tpanel textarea{min-height:90px}.revl{display:flex;flex-direction:column;gap:8px}.rv{padding:10px 12px;border-radius:12px;border:1px solid var(--glass-b);display:flex;flex-direction:column;gap:4px}
+.rv-h{display:flex;justify-content:space-between;gap:8px;align-items:center}.rst{font-size:.75rem;font-weight:700;padding:2px 10px;border-radius:99px;white-space:nowrap}
+.rst.s0{background:#fff3df;color:#a85300}.rst.s1{background:#e7eff9;color:#1f5fae}.rst.s2{background:#e3f4ea;color:#1a7f4b}.rst.s3{background:#eceff2;color:#555}
+.rv-r{font-size:.9rem;padding:6px 10px;border-radius:8px;background:var(--glass)}.tlog{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.tform{display:flex;flex-direction:column;gap:12px}
+
+.a-bad{background:var(--bad-bg);color:var(--bad)}.a-ok{background:var(--ok-bg);color:var(--ok)}.a-info{background:var(--acc-soft);color:var(--ink)}
+.out{display:flex;flex-direction:column;gap:10px}
+.out pre{margin:0;white-space:pre-wrap;word-break:break-word;font:500 .88rem/1.6 var(--f-body);background:var(--solid);border:1px solid var(--line);border-radius:12px;padding:12px;max-height:260px;overflow:auto}
+@media (max-width:900px){.brief{grid-template-columns:1fr}}
+@media (max-width:520px){.f2c{grid-template-columns:1fr}form{padding:18px}}
+
+/* คำถาม (หน้าตา) */
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+details{padding:16px 20px}
+summary{cursor:pointer;font:600 1.02rem var(--f-head);list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.3rem;line-height:1;color:var(--acc);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin-top:10px;color:var(--muted);font-size:.95rem}
+@media (max-width:760px){.faq{grid-template-columns:1fr}}
+
+/* ติดต่อ */
+.contact{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center;padding:32px}
+.clist{display:flex;flex-direction:column;gap:10px}
+.crow{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:var(--solid);border:1px solid var(--line);min-width:0}
+.crow svg{width:22px;height:22px;color:var(--acc);flex:none}
+.crow div{min-width:0;flex:1}.crow small{display:block;color:var(--muted);font-size:.8rem}
+.crow b{font-family:var(--f-mono);font-weight:600;word-break:break-all}
+.copy{border:1px solid var(--line);background:transparent;color:var(--acc);border-radius:10px;padding:6px 10px;cursor:pointer;font:600 .82rem var(--f-body)}
+@media (max-width:820px){.contact{grid-template-columns:1fr;padding:22px}}
+footer{padding-block:28px 40px;color:var(--muted);font-size:.88rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;font-weight:600;z-index:50;box-shadow:var(--shadow)}
+@media (prefers-reduced-motion:no-preference){
+  body::after{animation:aur 26s ease-in-out infinite alternate}
+  .phone{animation:bob 6s ease-in-out infinite}
+  .s-hero svg path.ln{stroke-dasharray:300;stroke-dashoffset:300;animation:draw 1.6s .4s ease forwards}
+  .app,.plan{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
+  .app:hover,.plan:not(.pro):hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(60,60,150,.15)}
+}
+@keyframes aur{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(-3vmax,2vmax,0) scale(1.05)}100%{transform:translate3d(2vmax,-2vmax,0)}}
+@keyframes bob{50%{transform:translateY(-8px)}}
+@keyframes draw{to{stroke-dashoffset:0}}
+</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<header class="top"><div class="wrap top-in">
+  <a class="brand" href="#top" aria-label="กลับด้านบน"><span class="mark" id="logo"></span><b id="brand">Asuraphong Apps</b></a>
+  <nav class="nav" aria-label="เมนูหลัก"><a href="#apps">แอป</a><a href="#plans">แพ็กเกจ</a><a href="#brief">สั่งทำตามบรีฟ</a><a href="#track" data-trk>ติดตามบรีฟ</a><a href="#faq">คำถาม</a><a href="#contact">ติดต่อ</a></nav>
+  <a class="btn btn-acc" href="#brief">ส่งบรีฟ</a>
+</div></header>
+
+<main id="top">
+  <section id="track" hidden><div class="wrap"><div id="trk"></div></div></section>
+  <section class="hero"><div class="wrap hero-in">
+    <div class="hero-txt">
+      <span class="eyebrow" id="hero-eye">แอปมือถือสำหรับธุรกิจเล็ก</span>
+      <h1>งานหน้าร้านทั้งหมด<br><em>อยู่ในมือถือเครื่องเดียว</em></h1>
+      <p class="lead" id="hero-lead">เริ่มจากแอปหอพักที่ใช้ฟรีได้จริง ออกบิล ตรวจสลิป รับพัสดุ แจ้งซ่อม ดูผังห้องว่าง ข้อมูลทั้งหมดอยู่ใน Google ของคุณเอง ไม่ต้องลงโปรแกรม เปิดผ่านลิงก์ได้ทั้ง Android และ iPhone</p>
+      <div class="cta"><a class="btn btn-acc" id="cta-demo" href="#apps" target="_blank" rel="noopener">ลองแอปหอพัก</a><a class="btn btn-line" href="#brief">อยากได้แอปของร้านเรา</a></div>
+      <div class="trust" id="trust"></div>
+    </div>
+    <div class="phone" aria-hidden="true">
+      <div class="screen">
+        <div class="s-top"><i></i><div><b>หอพักบ้านสวนจันทร์</b><em>PRO</em><br><span style="color:#5f6488">สวัสดีตอนเย็น คุณวรรณ</span></div></div>
+        <div class="s-hero"><small>รายรับรอบ ต.ค. 2569</small><strong>฿1,480,270</strong><div class="s-bar"><i></i></div><small>ชำระแล้ว 77/120 ห้อง</small>
+          <svg viewBox="0 0 240 38" preserveAspectRatio="none"><path d="M4 32 L50 26 L96 22 L142 18 L188 12 L236 8 L236 38 L4 38Z" fill="rgba(255,255,255,.22)"/><path class="ln" d="M4 32 L50 26 L96 22 L142 18 L188 12 L236 8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+        <div class="s-tiles">
+          <div class="s-tile"><div class="t"><i class="g1"></i><span class="n">24</span></div><b>บิลค่าเช่า</b><span>ค้างชำระ</span></div>
+          <div class="s-tile"><div class="t"><i class="g2"></i><span class="n">10</span></div><b>พัสดุ</b><span>รอผู้เช่ารับ</span></div>
+          <div class="s-tile"><div class="t"><i class="g3"></i><span class="n">4</span></div><b>แจ้งซ่อม</b><span>ยังไม่เสร็จ</span></div>
+          <div class="s-tile"><div class="t"><i class="g4"></i><span class="n">80%</span></div><b>ห้องพัก</b><span>เข้าพัก</span></div>
+        </div>
+      </div>
+      <div class="float glass f1" id="fl1"></div><div class="float glass f2" id="fl2"></div>
+    </div>
+  </div></section>
+
+  <div class="wrap"><div class="facts glass" id="facts"></div></div>
+
+  <section id="apps"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">แอปของเรา</span><h2>แยกแอปตามประเภทธุรกิจ</h2><p class="muted">แต่ละแอปทำมาเพื่องานของธุรกิจนั้นโดยตรง ไม่ต้องตั้งค่าเยอะ เปิดใช้ได้ทันที</p></div>
+    <div class="apps" id="app-grid"></div>
+  </div></section>
+
+  <section id="plans"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">แพ็กเกจ</span><h2>เริ่มฟรี อัปเกรดเมื่อพร้อม</h2><p class="muted">ข้อมูลเดิมอยู่ครบทุกครั้งที่เปลี่ยนแพ็กเกจ ไม่ต้องติดตั้งใหม่</p></div>
+    <div class="plans" id="plan-grid"></div>
+  </div></section>
+
+  <section id="brief"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">สั่งทำตามบรีฟ</span><h2>อยากได้แอปที่ตรงกับร้านคุณ</h2><p class="muted">เราเริ่มจากเทมเพลตที่ใช้งานจริงอยู่แล้ว แล้วเพิ่มฟังก์ชันตามที่ร้านคุณต้องการ จึงเร็วและถูกกว่าการเขียนใหม่ทั้งหมด</p></div>
+    <div class="brief">
+      <div class="steps" id="steps"></div>
+      <form class="glass" id="bf" novalidate>
+        <div class="f2c">
+          <div class="field"><label for="b-name">ชื่อผู้ติดต่อ</label><input id="b-name" autocomplete="name" placeholder="เช่น คุณวรรณา"></div>
+          <div class="field"><label for="b-shop">ชื่อกิจการ <span class="opt">(ถ้ามี)</span></label><input id="b-shop" placeholder="เช่น หอพักบ้านสวน"></div>
+        </div>
+        <div class="f2c">
+          <div class="field"><label for="b-type">ประเภทธุรกิจ</label><select id="b-type"></select><div id="b-note"></div></div>
+          <div class="field"><label for="b-users">คนที่ใช้แอป <span class="opt">(ประมาณ)</span></label><select id="b-users"><option>1–5 คน</option><option>6–20 คน</option><option>21–100 คน</option><option>มากกว่า 100 คน</option></select></div>
+        </div>
+        <div class="field"><span class="lab" id="b-f-l">ฟังก์ชันที่อยากได้ <span class="opt">(เลือกได้หลายข้อ)</span></span><div class="chips" id="b-feats" role="group" aria-labelledby="b-f-l"></div></div>
+        <div class="field"><label for="b-detail">เล่างานของร้านให้ฟัง</label><textarea id="b-detail" placeholder="เช่น ตอนนี้จดออเดอร์ในกระดาษ อยากให้ลูกค้าสแกน QR ที่โต๊ะแล้วสั่งเอง ครัวเห็นออเดอร์ทันที"></textarea></div>
+        <div class="field"><label for="b-contact">LINE ID หรือเบอร์โทร</label><input id="b-contact" autocomplete="tel" placeholder="เช่น 0812345678 หรือ @shopline"></div>
+        <label class="hp" aria-hidden="true">เว็บไซต์<input id="b-hp" tabindex="-1" autocomplete="off"></label>
+        <label class="consent" for="b-ok"><input type="checkbox" id="b-ok"><span>ยินยอมให้เก็บชื่อและช่องทางติดต่อ เพื่อติดต่อกลับเรื่องบรีฟนี้เท่านั้น ไม่ส่งต่อบุคคลอื่น ขอลบได้ทุกเมื่อ</span></label>
+        <div id="b-msg"></div>
+        <button class="btn btn-acc" type="submit" id="b-send">ส่งบรีฟ</button>
+        <p class="small muted" style="margin:0">ส่งบรีฟไปแล้ว? <a href="#track" data-trk>ดูสถานะบรีฟของคุณ</a></p>
+      </form>
+    </div>
+  </div></section>
+
+  <section id="faq"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">คำถามที่พบบ่อย</span><h2>ก่อนเริ่มใช้</h2></div>
+    <div class="faq" id="faq-list"></div>
+  </div></section>
+
+  <section id="contact"><div class="wrap">
+    <div class="contact glass">
+      <div style="display:flex;flex-direction:column;gap:12px;min-width:0"><span class="eyebrow">ติดต่อ</span><h2>คุยกันก่อนได้ ไม่มีค่าใช้จ่าย</h2>
+        <p class="muted" id="c-note">ทักมาเล่างานของร้านคุณ เราจะแนะนำว่าแอปไหนเหมาะ หรือควรสั่งทำเพิ่มอะไร พร้อมนัดวิดีโอคอลสาธิตให้ดูของจริง</p></div>
+      <div class="clist" id="c-list"></div>
+    </div>
+  </div></section>
+</main>
+<footer><div class="wrap"><span id="copy"></span><span>ข้อมูลลูกค้าเก็บใน Google ของกิจการเอง · เป็นไปตาม PDPA</span></div></footer>
+
+<script>
+/* ================= CONFIG: แก้ข้อมูลเว็บได้ที่นี่ที่เดียว ================= */
+const CONFIG = {
+  brand: 'Asuraphong Apps',                       // ชื่อแบรนด์
+  year: 2569,
+  line: '@352ismlf',                          // LINE OA เช่น '@123abcde' (ใส่ @ ด้วย, ยังไม่มีให้เว้นว่าง '') ปุ่ม "เพิ่มเพื่อน" จะขึ้นเอง
+  phone: '',                                  // ไม่แสดงเบอร์บนเว็บ (ให้เฉพาะลูกค้าโปรในแอป)
+  email: 'asuraphongapps54@gmail.com',                 // อีเมลธุรกิจ (เว้นว่างได้)
+  hours: 'ตอบแชตทุกวัน 17:00–21:00 น.',
+  leadApi: 'https://script.google.com/macros/s/AKfycbzYIz390j9N45Jj2NKoErYEN1di8MX3vv4z93281B-AMYNv-Y4QckFABrcl8IGkSgU-/exec',                                // ลิงก์ /exec ของยานแม่ (เว้นว่าง = ให้ลูกค้าคัดลอกบรีฟส่ง LINE)
+  briefDays: 7,                               // ส่งเดโมให้ลองภายในกี่วัน
+  price: { pro: '359', proNote: 'ซื้อขาด จ่ายครั้งเดียว · 1 รหัส ใช้ได้ 1 กิจการ', ma: '', ultimate: '' },   // เว้นว่าง = "สอบถามราคา" เช่น pro: '2,990'
+  apps: [
+    { id:'dorm', name:'แอปหอพัก', for:'หอพัก อพาร์ตเมนต์ คอนโดให้เช่า', status:'live', icon:'home', grad:'g1',
+      demo:'https://asuraphongapps54-prog.github.io/apartment/demo.html',
+      feats:['บิลค่าเช่า น้ำ ไฟ ส่วนกลาง','ผู้เช่าส่งสลิปเอง','รับพัสดุ สแกนบาร์โค้ด','แจ้งซ่อมพร้อมรูป','ผังห้องว่าง / ค้างชำระ','บันทึกผู้มาติดต่อ ค่าจอด','รปภ. ถ่ายรูปจุดตรวจ','5 ตำแหน่ง ตั้งสิทธิ์เองได้'] },
+    { id:'food', name:'แอปร้านอาหาร', for:'ร้านอาหาร คาเฟ่ บาร์ ฟู้ดคอร์ต', status:'soon', icon:'food', grad:'g3', feats:['ลูกค้าสแกน QR สั่งที่โต๊ะ','ครัวเห็นออเดอร์ทันที','สรุปยอดขายรายวัน'] },
+    { id:'repair', name:'แอปร้านซ่อม / รับงาน', for:'ร้านซ่อมมือถือ แอร์ รถ ช่างรับงาน', status:'live', icon:'wrench', grad:'g2',
+      demo:'https://asuraphongapps54-prog.github.io/repair/demo.html', feats:['ใบรับงานพร้อมรูปก่อนซ่อม','ลูกค้าเช็กสถานะเอง','แจ้งค่าใช้จ่ายก่อนซ่อม'] },
+    { id:'queue', name:'แอปนัดคิว', for:'ร้านเสริมสวย สปา ฟิตเนส กวดวิชา', status:'soon', icon:'calendar', grad:'g4', feats:['ลูกค้าจองคิวผ่านลิงก์','เตือนนัดล่วงหน้า','ประวัติลูกค้าแต่ละคน'] },
+    { id:'stock', name:'แอปร้านค้า / สต็อก', for:'ร้านชำ มินิมาร์ท ร้านค้าปลีก ร้านวัสดุ', status:'soon', icon:'box', grad:'g1', feats:['สแกนบาร์โค้ดรับเข้า-ขายออก','เตือนของใกล้หมด','สรุปกำไรรายเดือน'] }
+  ],
+  /* ประเภทธุรกิจในฟอร์มส่งบรีฟ: [หมวด, แอปที่ตรงที่สุด, [ประเภทย่อย]] เพิ่ม/ลบได้ตามต้องการ */
+  bizTypes: [
+    // [หมวด, แอปที่ตรงที่สุด, [ประเภทย่อย]] · ถ้าประเภทไหนใช้แอปอื่น เขียน 'ชื่อ|แอป' เช่น 'องค์กรจัดอบรม|custom'
+    // แอป: dorm หอพัก · food ร้านอาหาร · stock ร้านค้า · repair ร้านซ่อม/รับงาน · queue นัดคิว · custom สั่งทำตามบรีฟ
+    ['ที่พักและพื้นที่ให้เช่า', 'dorm', ['หอพัก','อพาร์ตเมนต์','คอนโดให้เช่า','บ้านเช่า / ห้องแถวให้เช่า','Co-working Space / พื้นที่เช่า']],
+    ['อาหารและเครื่องดื่ม', 'food', ['ร้านอาหาร','ร้านคาเฟ่ / ร้านกาแฟ','บาร์และผับ','ร้านเบเกอรี่ / ขนม','ร้านชานม / เครื่องดื่ม','ฟู้ดทรัก / ร้านริมทาง','ครัวส่งอาหาร / ร้านเดลิเวอรี']],
+    ['ร้านค้าและคลังสินค้า', 'stock', ['ร้านชำ / โชห่วย','มินิมาร์ท','ซูเปอร์มาร์เก็ต','ร้านขายสินค้า','ร้านค้าปลีก','ร้านขายส่ง','คลังสินค้า','ร้านวัสดุก่อสร้าง / ฮาร์ดแวร์','ร้านเสื้อผ้า / แฟชั่น','ร้านค้าออนไลน์','ร้านขายยา']],
+    ['งานซ่อมและบริการ', 'repair', ['ร้านซ่อมมือถือ / คอมพิวเตอร์','ช่างแอร์ / ไฟฟ้า / ประปา','อู่ซ่อมรถ / ศูนย์บริการรถยนต์','คาร์แคร์ / ล้างรถ','ร้านซักรีด']],
+    ['ความงามและนัดหมาย', 'queue', ['ร้านเสริมสวย / ตัดผม','ร้านทำเล็บ','สปา / ร้านนวด','ฟิตเนส / สตูดิโอ / เทรนเนอร์']],
+    ['การศึกษาและคอร์สเรียน', 'queue', ['โรงเรียนกวดวิชา / ติวเตอร์','สถาบันสอนทักษะ (ดนตรี ภาษา กีฬา)','องค์กรที่จัดอบรมภายใน|custom','เนอสเซอรี / รับเลี้ยงเด็ก|custom']],
+    ['งานภาคสนามและองค์กร', 'custom', ['รับเหมาก่อสร้าง / ตกแต่งภายใน','บริษัททำความสะอาด / แม่บ้าน','ทีมขายนอกสถานที่ (เซลส์)']],
+    ['ให้เช่ารถและอุปกรณ์', 'custom', ['รถเช่า / มอเตอร์ไซค์เช่า','อุปกรณ์ให้เช่า (กล้อง เต็นท์ ชุด)','ร้านเช่าชุด / พร็อพงาน']],
+    ['งานประจำในหน่วยงาน / สำนักงาน', 'custom', ['ติดตามงานส่งต่อระหว่างแผนก (เช่น เอกสาร พัสดุ ชิ้นงาน)','เช็กลิสต์งานประจำวัน / ตารางเวร','ยืม-คืนอุปกรณ์ / ครุภัณฑ์','แจ้งซ่อมภายในองค์กร','รับ-ส่งพัสดุและเอกสารในองค์กร','บันทึกอุณหภูมิตู้เย็น / ตรวจเช็กเครื่องมือ','ลงเวลา / ขอลา / ขอ OT']],
+    ['สัตว์เลี้ยง', 'queue', ['อาบน้ำตัดขนสัตว์','คลินิกสัตว์','โรงแรมรับฝากสัตว์','ร้านขายอาหารและอุปกรณ์สัตว์|stock']],
+    ['ท่องเที่ยวและที่พักระยะสั้น', 'queue', ['โฮมสเตย์ / รีสอร์ตเล็ก','โฮสเทล','ลานกางเต็นท์ / แคมป์','ทัวร์ / ไกด์ท้องถิ่น']],
+    ['งานอีเวนต์และสร้างสรรค์', 'queue', ['รับจัดงาน / งานแต่ง','ช่างภาพ / สตูดิโอถ่ายรูป','ร้านพิมพ์ / ถ่ายเอกสาร / ป้าย|repair','ร้านดอกไม้ / ของขวัญ|stock']],
+    ['ขนส่งและส่งของ', 'custom', ['ขนส่ง / รถรับจ้างขนของ','แมสเซนเจอร์ / ส่งเอกสาร','รถรับส่งนักเรียน / พนักงาน']],
+    ['เกษตรและผลิต', 'stock', ['ฟาร์ม / สวนผลไม้','ร้านปุ๋ย / อุปกรณ์การเกษตร','วิสาหกิจชุมชน / OTOP','โรงงานขนาดเล็ก / รับผลิต OEM','งานผลิตตามสั่ง (เฟอร์นิเจอร์ ป้าย งานเหล็ก)|repair']],
+    ['ชุมชนและองค์กรไม่แสวงกำไร', 'custom', ['นิติบุคคลหมู่บ้าน / อาคารชุด|dorm','มูลนิธิ / สมาคม / ชมรม','วัด / ศาสนสถาน','สำนักงานบัญชี / กฎหมาย|queue']]
+  ]
+};
+/* ======================================================================== */
+
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const P={home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',food:'<path d="M7 3v8a2 2 0 0 0 2 2v8M11 3v8M7 7h4M17 3c-1.7 0-3 2-3 5s1.3 4 3 4v9"/>',
+ wrench:'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/>',calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+ box:'<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',check:'<path d="M20 6L9 17l-5-5"/>',x:'<path d="M18 6L6 18M6 6l12 12"/>',plus:'<path d="M12 5v14M5 12h14"/>',
+ shield:'<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>',phone:'<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/>',
+ chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',call:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+ spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',bell:'<path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 21h4"/>',logo:'<path d="M12 3 2 8l10 5 10-5z"/><path d="m2 13 10 5 10-5"/><path d="m2 17.5 10 5 10-5" opacity=".6"/>',
+ camera:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',open:'<path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>'};
+const icon=(n,c)=>`<svg class="${c||'ic'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n]||P.box}</svg>`;
+function toast(t){const d=document.createElement('div');d.className='toast';d.setAttribute('role','status');d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
+async function copyText(t,el){try{await navigator.clipboard.writeText(t);toast('คัดลอกแล้ว')}catch(e){if(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}toast('เลือกข้อความไว้แล้ว กดคัดลอกเองได้เลย')}}
+
+const C=CONFIG,live=C.apps.filter(a=>a.status==='live'),soon=C.apps.filter(a=>a.status!=='live');
+document.title=C.brand;$('#brand').textContent=C.brand;$('#logo').innerHTML=icon('logo','');
+if(live[0]&&live[0].demo)$('#cta-demo').href=live[0].demo;
+$('#trust').innerHTML=[['shield','ข้อมูลอยู่ใน Google ของคุณ'],['phone','Android และ iPhone'],['check','เริ่มใช้ฟรี']].map(([i,t])=>`<span>${icon(i)}${t}</span>`).join('');
+$('#fl1').innerHTML=icon('camera')+'รปภ. ถ่ายรูปจุดตรวจ';$('#fl2').innerHTML=icon('check')+'ตรวจสลิปในแอป';
+$('#facts').innerHTML=[[live.length+soon.length,'แอปตามประเภทธุรกิจ'],['0 บาท','เริ่มใช้แพ็กเกจฟรี'],['5','ตำแหน่ง ตั้งสิทธิ์แยกกัน'],[C.briefDays+' วัน','ได้เดโมตามบรีฟ']].map(([b,s])=>`<div class="fact"><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join('');
+
+/* แอป: ตัวที่ใช้ได้แล้วเป็นการ์ดใหญ่ ตัวที่กำลังทำเป็นการ์ดเล็ก + ช่องสั่งทำ */
+$('#app-grid').innerHTML=live.map(a=>`<article class="app live glass">
+    <div style="display:flex;flex-direction:column;gap:14px;min-width:0"><div class="app-h"><span class="app-ic ${a.grad}">${icon(a.icon,'')}</span><div><h3>${esc(a.name)}</h3><span class="muted" style="font-size:.9rem">${esc(a.for)}</span></div></div>
+      <span class="badge b-live" style="align-self:flex-start">${icon('check','')} พร้อมใช้งาน · ใช้ฟรีได้</span>
+      <p class="muted">ผู้จัดการ พนักงาน และผู้เช่า ใช้แอปเดียวกัน แต่ละคนเห็นเฉพาะเมนูของตัวเอง ผู้เช่าดูบิลและส่งสลิปได้เอง ไม่ต้องทักมาถามยอด</p>
+      <div class="row">${a.demo?`<a class="btn btn-acc" href="${esc(a.demo)}" target="_blank" rel="noopener">${icon('open','')}ลองเดโม</a>`:''}<a class="btn btn-line" href="#brief" data-pick="${esc(a.id)}">ขอติดตั้งให้หอของฉัน</a></div></div>
+    <ul>${a.feats.map(f=>`<li>${icon('check','')}<span>${esc(f)}</span></li>`).join('')}</ul></article>`).join('')
+  +soon.map(a=>`<article class="app soon glass"><div class="app-h"><span class="app-ic ${a.grad}">${icon(a.icon,'')}</span><div style="min-width:0"><h3>${esc(a.name)}</h3><span class="muted" style="font-size:.88rem">${esc(a.for)}</span></div></div>
+    <span class="badge b-soon" style="align-self:flex-start">กำลังพัฒนา</span><div class="feat">${a.feats.map(f=>`<span>${esc(f)}</span>`).join('')}</div>
+    <div class="row"><a class="btn btn-line" href="#brief" data-pick="${esc(a.id)}" data-wait="1">${icon('bell','')}สนใจ แจ้งเมื่อพร้อม</a></div></article>`).join('')
+  +`<article class="app add glass"><span class="badge b-brief">${icon('spark','')} ไม่มีประเภทที่ต้องการ</span><h3>ธุรกิจของคุณไม่อยู่ในรายการ?</h3><p class="muted">ส่งบรีฟมาได้ เราดัดแปลงจากเทมเพลตที่มีให้ตรงกับงานของร้านคุณ</p><a class="btn btn-acc" href="#brief" data-pick="other">ส่งบรีฟ</a></article>`;
+
+/* แพ็กเกจ */
+const pr=(v,u)=>v?`${esc(v)} <small>${u}</small>`:'สอบถามราคา';
+const L=(ok,t)=>`<li class="${ok?'':'no'}">${icon(ok?'check':'x','')}<span>${t}</span></li>`;
+$('#plan-grid').innerHTML=`
+  <article class="plan glass"><div><h3>ฟรี</h3><p class="muted">ลองใช้งานจริงกับกิจการเล็ก</p></div><div class="price">0 <small>บาท ตลอดไป</small></div>
+    <ul>${L(1,'สูงสุด 40 ห้อง พนักงาน 5 คน')}${L(1,'บิล ส่วนกลาง สลิป พัสดุ แจ้งซ่อม')}${L(1,'ผังห้องว่าง และแอปฝั่งผู้เช่า')}${L(1,'ติดตั้งเองตามคู่มือ')}${L(0,'ผู้มาติดต่อ รถลูกบ้าน แชต เช็กลิสต์')}</ul>
+    <a class="btn btn-line" href="#brief" data-pick="dorm">ขอคู่มือติดตั้ง</a></article>
+  <article class="plan glass pro"><div><span class="badge" style="background:rgba(255,255,255,.2);color:#fff">แนะนำ</span><h3 style="margin-top:8px">โปร</h3><p class="muted">ปลดล็อกทุกเมนู หน้าตาพรีเมียม</p></div>
+    <div class="price">${pr(C.price.pro,'บาท')}</div><p class="muted" style="margin-top:-8px">${esc(C.price.proNote)}${C.price.ma?` · ดูแลรายปี ${esc(C.price.ma)} บาท`:''}</p>
+    <ul>${L(1,'ห้องและพนักงานไม่จำกัด หลายตึก')}${L(1,'บันทึกผู้มาติดต่อ คิดค่าจอดอัตโนมัติ')}${L(1,'รปภ. ค้นทะเบียนรถ ถ่ายรูปจุดตรวจ')}${L(1,'แชตผู้เช่า เช็กลิสต์ทุกตำแหน่ง')}${L(1,'การ์ดรายรับ 6 เดือน สรุปทางอีเมลทุกเช้า')}${L(1,'ติดตั้งให้ผ่านวิดีโอคอล')}</ul>
+    <a class="btn" href="#brief" data-pick="dorm">ขอใบเสนอราคา</a></article>
+  <article class="plan glass"><div><span class="badge b-soon">เร็ว ๆ นี้</span><h3 style="margin-top:8px">อัลติเมต</h3><p class="muted">สำหรับหลายสาขา ระบบบนคลาวด์</p></div><div class="price">${pr(C.price.ultimate,'บาท/เดือน')}</div>
+    <ul>${L(1,'หลายสาขาในบัญชีเดียว')}${L(1,'แจ้งเตือนผ่าน LINE')}${L(1,'อัปเดตทันทีไม่ต้องรีเฟรช')}${L(1,'ระบบสำหรับคลินิก / โรงพยาบาล')}${L(1,'โลโก้และโดเมนของกิจการ')}</ul>
+    <a class="btn btn-line" href="#brief" data-pick="dorm" data-wait="1">แจ้งเมื่อเปิดตัว</a></article>`;
+
+/* ขั้นตอนสั่งทำ (เรียงตามลำดับจริง) */
+$('#steps').innerHTML=[['ส่งบรีฟ','เล่างานของร้านในแบบฟอร์ม ใช้เวลา 3 นาที'],['คุยวิดีโอคอล 15 นาที','สรุปว่าใช้เทมเพลตไหน เพิ่มฟังก์ชันอะไร และราคาเท่าไร'],
+  ['ได้เดโมลองใช้ภายใน '+C.briefDays+' วัน','ใช้ข้อมูลจำลองของร้านคุณ ปรับได้จนพอใจ'],['ติดตั้งและสอนใช้งาน','ข้อมูลอยู่ใน Google ของร้านคุณ พนักงานเปิดผ่านลิงก์ได้ทันที']]
+  .map(([b,p],i)=>`<div class="step glass"><span class="no">${i+1}</span><div><b>${esc(b)}</b><p>${esc(p)}</p></div></div>`).join('');
+
+/* แบบฟอร์มบรีฟ */
+const FEATS=['บิล / รับชำระ / ตรวจสลิป','สแกนบาร์โค้ด / QR','ถ่ายรูปหลักฐาน','เช็กลิสต์งานพนักงาน','แชตกับลูกค้า','จองคิว / นัดหมาย','สต็อกสินค้า','ล็อกอินแยกตำแหน่ง','รายงาน / กราฟ','แจ้งเตือน LINE'];
+/* value = แอป:ลำดับ (ส่งไปยานแม่เฉพาะชื่อแอป ส่วนชื่อประเภทส่งใน typeLabel) */
+$('#b-type').innerHTML=C.bizTypes.map(([g,app,list],gi)=>`<optgroup label="${esc(g)}">${list.map((t,i)=>{const[l,a2]=t.split('|');return `<option value="${esc(a2||app)}:${gi}-${i}">${esc(l)}</option>`}).join('')}</optgroup>`).join('')
+  +'<optgroup label="อื่น ๆ"><option value="custom:x">ธุรกิจอื่น (ระบุในรายละเอียด)</option><option value="custom:med">คลินิก / โรงพยาบาล (รอแพ็กเกจอัลติเมต)</option></optgroup>';
+const appOf=v=>String(v||'').split(':')[0];
+/* นโยบาย: ยังไม่รับระบบคลินิก/โรงพยาบาล (รอแพ็กเกจอัลติเมต) · ร้านขายยารับเฉพาะระบบร้านค้า */
+const typeNote=()=>{const o=$('#b-type').selectedOptions[0],v=o?o.value:'',t=o?o.textContent:'';
+  const n=v==='custom:med'?'ตอนนี้เรายังไม่รับทำระบบสำหรับคลินิกและโรงพยาบาล เพราะต้องดูแลข้อมูลผู้ป่วยตามมาตรฐานที่เข้มกว่า ระบบนี้จะมาในแพ็กเกจอัลติเมต ส่งบรีฟไว้ได้ เราจะแจ้งเมื่อเปิดให้ใช้'
+    :/ร้านขายยา/.test(t)?'ร้านขายยา: เรารับเฉพาะระบบร้านค้า (สต็อก ขายหน้าร้าน สมาชิก) ไม่เก็บข้อมูลผู้ป่วยหรือใบสั่งยา':'';
+  $('#b-note').innerHTML=n?`<div class="alert a-info" role="note" style="margin-top:8px;font-size:.88rem">${n}</div>`:''};
+$('#b-type').addEventListener('change',typeNote);
+$('#b-feats').innerHTML=FEATS.map((f,i)=>`<label class="chip" for="bf${i}"><input type="checkbox" id="bf${i}" value="${esc(f)}">${esc(f)}</label>`).join('');
+let wait=false;
+document.querySelectorAll('[data-pick]').forEach(a=>a.addEventListener('click',()=>{const v=a.dataset.pick,o=[...$('#b-type').options].find(o=>appOf(o.value)===v);if(o)$('#b-type').value=o.value;typeNote();wait=!!a.dataset.wait;
+  if(wait&&!$('#b-detail').value)$('#b-detail').value='สนใจ '+(C.apps.find(x=>x.id===v)||{name:'แพ็กเกจอัลติเมต'}).name+' แจ้งเมื่อเปิดให้ใช้ด้วย';}));
+const val=id=>$(id).value.trim();
+function briefText(d){return `บรีฟจากเว็บ ${C.brand}\nชื่อ: ${d.name}${d.shop?' ('+d.shop+')':''}\nประเภท: ${d.typeLabel}\nคนใช้: ${d.users}\nฟังก์ชัน: ${d.feats.join(', ')||'-'}\nรายละเอียด: ${d.detail||'-'}\nติดต่อ: ${d.contact}`}
+$('#bf').addEventListener('submit',async e=>{e.preventDefault();if($('#b-type').value==='custom:med')wait=true;const msg=$('#b-msg'),btn=$('#b-send');msg.innerHTML='';
+  const d={kind:wait?'รอแจ้งเปิดตัว':'บรีฟ',name:val('#b-name'),shop:val('#b-shop'),type:appOf($('#b-type').value),typeLabel:$('#b-type').selectedOptions[0].textContent,users:$('#b-users').value,
+    feats:[...document.querySelectorAll('#b-feats input:checked')].map(x=>x.value),detail:val('#b-detail'),contact:val('#b-contact'),hp:val('#b-hp'),consent:$('#b-ok').checked,page:location.href.slice(0,200)};
+  const err=!d.name?['#b-name','ใส่ชื่อผู้ติดต่อ']:!d.contact?['#b-contact','ใส่ LINE ID หรือเบอร์โทร เพื่อให้เราติดต่อกลับได้']:!/^[0-9+\-\s]{9,15}$|^@?[\w.\-]{3,30}$/.test(d.contact)?['#b-contact','ช่องติดต่อใส่ได้เป็นเบอร์โทร 9–10 หลัก หรือ LINE ID']:!d.consent?['#b-ok','กดยินยอมการเก็บข้อมูลก่อนส่ง']:null;
+  if(err){msg.innerHTML=`<div class="alert a-bad" role="alert">${esc(err[1])}</div>`;$(err[0]).focus();return}
+  btn.disabled=true;btn.textContent='กำลังส่ง…';
+  if(C.leadApi){try{const r=await fetch(C.leadApi,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn:'pubLead',args:[d]})});const j=await r.json();if(!j.ok)throw new Error(j.error||'ส่งไม่สำเร็จ');j.id=(j.result||{}).id||j.id;
+      const tk=(j.result||{}).tok||'';msg.innerHTML=doneBox(j.id,tk,d);bindDone(j.id,tk);$('#bf').reset();wait=false;btn.disabled=false;btn.textContent='ส่งบรีฟ';
+      try{const L=JSON.parse(localStorage.getItem('aaBriefs')||'[]');L.unshift({id:j.id,tok:tk,at:Date.now()});localStorage.setItem('aaBriefs',JSON.stringify(L.slice(0,5)))}catch(e){}
+      msg.scrollIntoView({behavior:'smooth',block:'center'});return}
+    catch(x){/* ส่งไม่ได้ ให้คัดลอกส่งเองแทน */}}
+  const t=briefText(d);
+  msg.innerHTML=`<div class="out"><div class="alert a-info">คัดลอกบรีฟนี้ แล้วส่งให้เราทาง LINE ${C.line?`<b>${esc(C.line)}</b>`:''} ${C.phone?`หรือโทร <b>${esc(C.phone)}</b>`:''}</div><pre id="b-out">${esc(t)}</pre><button type="button" class="btn btn-acc" id="b-copy">คัดลอกบรีฟ</button></div>`;
+  $('#b-copy').onclick=()=>copyText(t,$('#b-out'));btn.disabled=false;btn.textContent='ส่งบรีฟ'});
+
+/* ===== หลังส่งบรีฟ + หน้าติดตามบรีฟ (?b=รหัส) ===== */
+const trkUrl=tk=>location.origin+location.pathname+'?b='+tk;
+const oaChat=t=>C.line?'https://line.me/R/oaMessage/'+encodeURIComponent(C.line.startsWith('@')?C.line:'@'+C.line)+'/?'+encodeURIComponent(t):'';
+function doneBox(id,tk,d){const u=tk?trkUrl(tk):'',chat=oaChat(`สวัสดีครับ ส่งบรีฟเลขที่ ${id} มาแล้ว (${d.shop||d.name})`);
+  return `<div class="done glass" role="status"><div class="done-h"><span class="tick">✓</span><div><b>ได้รับบรีฟแล้ว</b><div class="muted small">เลขที่บรีฟ</div><div class="bno">${esc(id)}</div></div></div>
+    <ol class="next"><li><b>เราติดต่อกลับภายใน 1 วันทำการ</b><span>ทาง ${esc(d.contact)} หรือทักเราก่อนทาง LINE ก็ได้ (${esc(C.hours||'')})</span></li>
+      <li><b>คุยวิดีโอคอล 15 นาที</b><span>สรุปว่าใช้แอปไหน เพิ่มอะไร ราคาเท่าไร ไม่มีค่าใช้จ่าย</span></li>
+      <li><b>ส่งตัวอย่างให้ลองภายใน ${esc(C.briefDays||7)} วัน</b><span>ลองกดจริงก่อน ตกลงแล้วค่อยเริ่มงาน ขอแก้ไขได้จากหน้าติดตาม</span></li></ol>
+    ${u?`<div class="field"><span class="lab">ลิงก์ติดตามสถานะบรีฟของคุณ <span class="opt">(บันทึกไว้ หรือกดส่งเข้า LINE ตัวเอง)</span></span><div class="urlbox mono" id="d-url">${esc(u)}</div></div>
+      <div class="acts"><a class="btn btn-acc" href="${esc(u)}">ดูสถานะบรีฟ</a><button type="button" class="btn btn-line" id="d-copy">คัดลอกลิงก์</button><a class="btn btn-line" href="https://line.me/R/msg/text/?${encodeURIComponent('ลิงก์ติดตามบรีฟ '+id+' ของ '+C.brand+'\n'+u)}" target="_blank" rel="noopener">บันทึกเข้า LINE ตัวเอง</a></div>`:''}
+    ${chat?`<a class="btn btn-ok" href="${esc(chat)}" target="_blank" rel="noopener">${icon('chat','')} ทัก LINE ${esc(C.line)} พร้อมเลขที่บรีฟ</a>`:''}
+    <div class="small muted">ลืมลิงก์ก็ไม่เป็นไร กด "ติดตามบรีฟ" ที่เมนูด้านบน แล้วใส่เลขที่บรีฟกับเบอร์ / LINE ID ที่กรอกไว้</div></div>`}
+function bindDone(id,tk){const c=$('#d-copy');if(c)c.onclick=()=>copyText(trkUrl(tk),$('#d-url'))}
+async function leadCall(fn,args){const r=await fetch(C.leadApi,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn,args})});const j=await r.json();if(!j.ok)throw new Error(j.error||'ระบบขัดข้อง ลองใหม่อีกครั้ง');return j.result}
+const dtTH=t=>{const d=new Date(+t);return d.getDate()+' '+['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'][d.getMonth()]+' '+String(d.getFullYear()+543).slice(2)+' · '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};
+function showTrack(on){document.querySelectorAll('main>*').forEach(x=>x.hidden=on?x.id!=='track':x.id==='track');if(on)window.scrollTo(0,0)}
+function trkFind(){showTrack(true);let mine=[];try{mine=JSON.parse(localStorage.getItem('aaBriefs')||'[]')}catch(e){}
+  $('#trk').innerHTML=`<div class="glass tpanel"><span class="eyebrow">ติดตามบรีฟ</span><h2>ดูสถานะงานของคุณ</h2>
+    ${mine.length?`<div class="field"><span class="lab">บรีฟที่ส่งจากเครื่องนี้</span><div class="acts">${mine.map(m=>`<a class="btn btn-line" href="?b=${esc(m.tok)}">${esc(m.id)}</a>`).join('')}</div></div>`:''}
+    <form id="tf" class="tform" novalidate><div class="f2c"><div class="field"><label for="t-id">เลขที่บรีฟ</label><input id="t-id" placeholder="เช่น C2611-002" autocapitalize="characters"></div>
+      <div class="field"><label for="t-c">เบอร์ / LINE ID ที่กรอกตอนส่งบรีฟ</label><input id="t-c" placeholder="เช่น 0812345678"></div></div>
+      <div id="t-err"></div><button class="btn btn-acc" type="submit">ดูสถานะ</button></form>
+    <a class="btn btn-line" href="./">กลับหน้าแรก</a></div>`;
+  $('#tf').onsubmit=async e=>{e.preventDefault();const b=e.target.querySelector('button');b.disabled=true;b.textContent='กำลังค้นหา…';
+    try{const r=await leadCall('pubBriefFind',[$('#t-id').value.trim(),$('#t-c').value.trim()]);location.href='?b='+r.tok}
+    catch(x){$('#t-err').innerHTML=`<div class="alert a-bad" role="alert">${esc(x.message)}</div>`;b.disabled=false;b.textContent='ดูสถานะ'}}}
+const NEXT_TXT={'ได้รับบรีฟแล้ว':'เรากำลังอ่านบรีฟ จะติดต่อกลับภายใน 1 วันทำการ','ติดต่อกลับแล้ว':'รอนัดวิดีโอคอล 15 นาที เพื่อสรุปงานและราคา','นัดคุยรายละเอียด':'หลังคุย เราจะส่งตัวอย่างให้ลอง',
+  'ส่งตัวอย่างและราคาแล้ว':'ลองกดตัวอย่างแล้วบอกเรา ตกลงเมื่อไรเริ่มงานได้เลย','ตกลงทำงาน':'เรากำลังเตรียมเริ่มงาน','กำลังทำ':'เรากำลังทำงานของคุณ จะแจ้งเมื่อพร้อมให้ตรวจ',
+  'ส่งให้ลูกค้าตรวจ':'งานพร้อมให้ตรวจแล้ว กดปุ่มเปิดดูงาน ลองใช้ จุดไหนอยากแก้ พิมพ์ส่งมาด้านล่างได้เลย','กำลังแก้ไข':'เรากำลังแก้ตามที่คุณขอ ดูสถานะแต่ละข้อได้ด้านล่าง','ติดตั้ง / ส่งมอบแล้ว':'ส่งมอบเรียบร้อย ใช้งานแล้วติดตรงไหน แจ้งเราได้จากหน้านี้'};
+const RST=['รอดู','กำลังแก้','แก้แล้ว','ไม่แก้ (คุยแล้ว)'];
+async function trkShow(tk){showTrack(true);$('#trk').innerHTML='<div class="glass tpanel"><div class="muted">กำลังโหลดสถานะบรีฟ…</div></div>';
+  let v;try{v=await leadCall('pubBrief',[tk])}catch(e){$('#trk').innerHTML=`<div class="glass tpanel"><div class="alert a-bad">${esc(e.message)}</div><button class="btn btn-line" id="t-again">ค้นด้วยเลขที่บรีฟ</button></div>`;$('#t-again').onclick=trkFind;return}
+  const idx=v.steps.indexOf(v.stage),chat=oaChat(`สวัสดีครับ สอบถามบรีฟเลขที่ ${v.id}`),pend=v.revs.filter(r=>r.st==='รอดู').length;
+  const nextTxt=v.closed?'เรื่องนี้ปิดไปแล้ว ถ้าอยากคุยใหม่ ทักเราทาง LINE ได้เลย':NEXT_TXT[v.stage]||'';
+  $('#trk').innerHTML=`<div class="glass tpanel"><div class="small muted">บรีฟเลขที่ <b class="mono">${esc(v.id)}</b> · ส่งเมื่อ ${dtTH(v.at)}</div>
+    <h2>${esc(v.org||'คุณ'+v.name)}</h2>${v.app?`<div class="muted">${esc(v.app)}</div>`:''}
+    <div class="nowst${v.closed?' off':''}"><span class="small">สถานะตอนนี้</span><b>${esc(v.stage)}</b><span>${esc(nextTxt)}</span></div>
+    ${v.msg?`<div class="devmsg"><span class="small muted">ข้อความจาก ${esc(C.brand)}</span><div>${esc(v.msg)}</div></div>`:''}
+    ${v.link?`<a class="btn btn-acc" href="${esc(v.link)}" target="_blank" rel="noopener">เปิดดูงาน / ตัวอย่าง</a>`:''}
+    ${!v.closed?`<ol class="tsteps">${v.steps.map((x,i)=>`<li class="${i<idx?'on':i===idx?'cur':''}"><i></i><span>${esc(x)}</span></li>`).join('')}</ol>`:''}</div>
+  <div class="glass tpanel"><h3>${v.canRevise?'ขอแก้ไขงาน':'ส่งข้อความถึงเรา'}</h3><div class="small muted">${v.canRevise?'พิมพ์ทีละจุดที่อยากแก้ เราจะอัปเดตสถานะแต่ละข้อให้เห็นที่นี่':'อยากเพิ่มรายละเอียด หรือเปลี่ยนความต้องการ พิมพ์ส่งได้เลย'}</div>
+    <textarea id="t-msg" rows="3" maxlength="1000" placeholder="${v.canRevise?'เช่น อยากให้ปุ่มสั่งของใหญ่ขึ้น / เพิ่มหน้ารายงานรายเดือน':'เช่น ร้านมีพนักงาน 3 คน อยากให้แยกสิทธิ์'}"></textarea>
+    <div id="t-err"></div><button class="btn btn-acc" id="t-send">${v.canRevise?'ส่งคำขอแก้ไข':'ส่งข้อความ'}</button>
+    ${v.revs.length?`<h3 style="margin-top:8px">ที่คุณส่งมา (${v.revs.length})${pend?` · <span class="small muted">รอเราดู ${pend} ข้อ</span>`:''}</h3><div class="revl">${v.revs.slice().reverse().map(r=>`<div class="rv"><div class="rv-h"><span class="small muted">${esc(r.kind||'ข้อความ')} · ${dtTH(r.at)}</span><span class="rst s${RST.indexOf(r.st)}">${esc(r.st==='รอดู'?'รอเราดู':r.st)}</span></div><div>${esc(r.text)}</div>${r.reply?`<div class="rv-r"><b>ตอบ:</b> ${esc(r.reply)}</div>`:''}</div>`).join('')}</div>`:''}</div>
+  <div class="glass tpanel"><h3>ประวัติ</h3><ol class="tlog">${v.log.slice().reverse().map(x=>`<li><b>${esc(x.t)}</b> <span class="small muted">${dtTH(x.at)}</span>${x.m?`<div class="small">${esc(x.m)}</div>`:''}</li>`).join('')}</ol>
+    <div class="acts">${chat?`<a class="btn btn-ok" href="${esc(chat)}" target="_blank" rel="noopener">${icon('chat','')} คุยกับเราทาง LINE</a>`:''}<button class="btn btn-line" id="t-ref">โหลดสถานะล่าสุด</button><a class="btn btn-line" href="./">หน้าแรก</a></div>
+    <div class="small muted">ลิงก์นี้เป็นของคุณคนเดียว อย่าส่งต่อให้คนอื่น</div></div>`;
+  $('#t-ref').onclick=()=>trkShow(tk);
+  $('#t-send').onclick=async e=>{const b=e.currentTarget;b.disabled=true;b.textContent='กำลังส่ง…';
+    try{await leadCall('pubBriefMsg',[tk,$('#t-msg').value]);toast('ส่งแล้ว เราจะตอบในหน้านี้');trkShow(tk)}catch(x){$('#t-err').innerHTML=`<div class="alert a-bad" role="alert">${esc(x.message)}</div>`;b.disabled=false;b.textContent='ส่งอีกครั้ง'}}}
+document.querySelectorAll('[data-trk]').forEach(a=>a.addEventListener('click',e=>{if(!C.leadApi)return;e.preventDefault();trkFind()}));
+{const tk=new URLSearchParams(location.search).get('b');if(tk&&C.leadApi)trkShow(tk.replace(/[^a-f0-9]/g,'').slice(0,24))}
+
+/* คำถาม */
+$('#faq-list').innerHTML=[['ข้อมูลของร้านเก็บไว้ที่ไหน','เก็บใน Google Sheets และ Google Drive ของบัญชีกิจการคุณเอง เราไม่เห็นข้อมูลลูกค้าของคุณ ถ้าเลิกใช้ ข้อมูลก็ยังอยู่กับคุณครบ'],
+  ['ใช้ฟรีได้จริงไหม','จริง แพ็กเกจฟรีใช้ได้ตลอด ไม่มีรายเดือน มีข้อจำกัดเรื่องจำนวนห้องและบางเมนู อยากได้เพิ่มค่อยอัปเกรดเป็นโปร'],
+  ['ต้องลงแอปจาก Play Store ไหม','ไม่ต้อง เปิดผ่านลิงก์ได้เลย และกด "เพิ่มไปยังหน้าจอโฮม" ให้มีไอคอนเหมือนแอป ใช้ได้ทั้ง Android และ iPhone'],
+  ['พนักงานไม่ค่อยถนัดมือถือ ใช้ได้ไหม','ปุ่มใหญ่ ขยายตัวหนังสือได้ 3 ระดับ แต่ละตำแหน่งเห็นเฉพาะเมนูของตัวเอง เราสอนใช้งานผ่านวิดีโอคอลให้'],
+  ['ข้อมูลส่วนบุคคลปลอดภัยไหม','ผู้ใช้ทุกคนต้องกดยินยอมก่อนสมัคร ผู้จัดการต้องอนุมัติก่อนเข้าใช้ ระบบลบข้อมูลรถและเบอร์ของผู้ที่ย้ายออกเกิน 30 วันให้อัตโนมัติ'],
+  ['สั่งทำตามบรีฟคิดเงินยังไง','ประเมินจากฟังก์ชันที่ต้องเพิ่มจากเทมเพลตเดิม แจ้งราคาให้ทราบก่อนเริ่มทำ ไม่มีค่าใช้จ่ายถ้ายังไม่ตกลง']]
+  .map(([q,a])=>`<details class="glass"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('');
+
+/* ติดต่อ */
+const rows=[C.line&&['chat','LINE',C.line],C.phone&&['call','โทร',C.phone],C.email&&['mail','อีเมล',C.email]].filter(Boolean);
+const addUrl=C.line?'https://line.me/R/ti/p/'+encodeURIComponent(C.line.startsWith('@')?C.line:'@'+C.line):'';
+$('#c-list').innerHTML=(addUrl?`<a class="btn btn-acc" href="${esc(addUrl)}" target="_blank" rel="noopener" style="background:linear-gradient(135deg,#06c755,#21b35f);box-shadow:none">${icon('chat','')}เพิ่มเพื่อน LINE ${esc(C.line)}</a>`:'')
+  +rows.map(([i,l,v],k)=>`<div class="crow">${icon(i,'')}<div><small>${l}</small><b id="cv${k}">${esc(v)}</b></div><button type="button" class="copy" data-c="${k}">คัดลอก</button></div>`).join('')
+  +`<p class="muted" style="font-size:.88rem">${esc(C.hours)}</p>`;
+document.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>copyText(rows[+b.dataset.c][2],$('#cv'+b.dataset.c)));
+$('#copy').textContent=`© ${C.year} ${C.brand} สงวนลิขสิทธิ์`;
+</script>
+
+</body>
+</html>
