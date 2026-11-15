@@ -200,6 +200,9 @@ textarea.input{min-height:84px;resize:vertical}
 .mh b{font-family:var(--f-head)}
 .mtot{font-family:var(--f-mono);font-weight:600;white-space:nowrap}
 .mtot.bad{color:var(--bad);font-family:var(--f-body);font-size:.84rem}
+.mtot.warn{color:#B45309;font-family:var(--f-body);font-size:.84rem;white-space:normal}
+.duo{display:grid;gap:16px;align-items:start}.duo>div:empty{display:none}.duo .newsbig{margin:0}@media (min-width:900px){.duo:has(#news-top:not(:empty)){grid-template-columns:1fr 1fr}}
+.today .item{width:100%;text-align:left;border:0;background:none;font:inherit;color:inherit;display:flex;align-items:center;gap:12px}.today .ic-s{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--soft,#eef6f5);flex:none}.today.ok{color:var(--good,#047857)}.tmbox{border:1px dashed var(--line);border-radius:12px;padding:10px 12px;display:grid;gap:8px}
 .mrow .field label{font-size:.82rem;font-weight:500;color:var(--muted)}
 .mrow.billed{grid-template-columns:1fr;color:var(--muted)}
 .meter{height:8px;border-radius:999px;background:var(--sunk);overflow:hidden;border:1px solid var(--line)}
@@ -483,6 +486,69 @@ a.gal-i{align-items:center;justify-content:center;aspect-ratio:1;border:1px soli
   html.print-mode #printroot{display:block}html.print-mode .doc{padding:0;font-size:13.5pt}@page{margin:16mm}}
 /*@@SHAREDCSS@@*/
 
+/* ===== หน้าตาใหม่สำหรับแพ็กเกจโปร (ตระกูลเดียวกับ Residence Cloud สีเขียวอมฟ้า) · ฉบับฟรีใช้หน้าตาเดิม ===== */
+html[data-plan="pro"]{--f-body:"IBM Plex Sans Thai",system-ui,sans-serif;--glass:#FFFFFF;--glass-b:#E3E8F0;--blur:none;--blue:#2563EB;--blue-soft:#EFF4FF;--violet:#7C3AED;--violet-soft:#F3EEFF}
+html[data-plan="pro"] body::before{display:none}
+html[data-plan="pro"] .av{background:linear-gradient(135deg,#2DD4BF,#0F766E);color:#fff}
+html[data-plan="pro"] .who,html[data-plan="pro"] .fs{background:#fff;border-color:var(--line)}
+html[data-plan="pro"] .demo{background:#fff;border-bottom-color:var(--line)}
+html[data-plan="pro"] .modal-box{background:#fff;border:1px solid var(--line);backdrop-filter:none}
+html[data-plan="pro"] .input{background:#fff;border-color:#D5DCE7;border-radius:10px}
+html[data-plan="pro"] .input:focus{border-color:#14B8A6;box-shadow:0 0 0 4px rgba(20,184,166,.16)}
+html[data-plan="pro"] .btn{border-radius:10px}
+html[data-plan="pro"] .btn-acc,html[data-plan="pro"] .cam,html[data-plan="pro"] .big-act.btn-acc{background:#0F766E;border-color:#0F766E;color:#fff;box-shadow:0 6px 14px -8px #0F766E}
+html[data-plan="pro"] .big-act.btn-line,html[data-plan="pro"] .btn-line{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:0 1px 2px rgba(15,23,42,.05)}
+html[data-plan="pro"] .big-act{border-radius:14px}
+html[data-plan="pro"] .back{background:#fff;border:1px solid var(--line);border-radius:10px}
+html[data-plan="pro"] .seg button[aria-pressed="true"],html[data-plan="pro"] .tabs button[aria-selected="true"],html[data-plan="pro"] .fs button[aria-pressed="true"]{background:#0F766E;color:#fff}
+html[data-plan="pro"] .chip{background:#fff;border-color:var(--line)}
+html[data-plan="pro"] .chip[aria-pressed="true"]{background:#0E1628;border-color:#0E1628;color:#fff}
+html[data-plan="pro"] .sk{background:linear-gradient(90deg,#EEF2F7 25%,#F8FAFC 40%,#EEF2F7 60%);background-size:400% 100%}
+html[data-plan="pro"] .ic{background:#E6F6F4;color:#0F766E;border-radius:12px}
+html[data-plan="pro"] .tile .ic,html[data-plan="pro"] .tile.t0 .ic,html[data-plan="pro"] .tile.t1 .ic,html[data-plan="pro"] .tile.t2 .ic,html[data-plan="pro"] .tile.t3 .ic{background:#E6F6F4;color:#0F766E;box-shadow:none;width:44px;height:44px;border-radius:12px}
+html[data-plan="pro"] .tile.t1 .ic{background:#EFF4FF;color:#2563EB}html[data-plan="pro"] .tile.t2 .ic{background:#F3EEFF;color:#7C3AED}html[data-plan="pro"] .tile.t3 .ic{background:#FEF3DD;color:#B45309}
+html[data-plan="pro"] .count b{background:none;-webkit-text-fill-color:currentColor;color:var(--ink)}
+html[data-plan="pro"] .tile.tadm{background:#0B1A1E;color:#fff;border-color:#0B1A1E}html[data-plan="pro"] .tile.tadm h3{color:#fff}
+html[data-plan="pro"] .tile.tadm p{color:#AEB8CC}html[data-plan="pro"] .tile.tadm .ic{background:#173339;color:#5EEAD4}
+html[data-plan="pro"] .hero{box-shadow:0 18px 40px -18px rgba(15,118,110,.6)}
+html[data-plan="pro"] .hero .h-bar i{background:linear-gradient(90deg,#fff,#CCFBF1)}
+
+html[data-plan="pro"]{--bg:#F3F5F9;--surface:#FFFFFF;--sunk:#F8FAFC;--ink:#0E1628;--muted:#4A5568;--line:#E3E8F0;
+  --teal:#0F766E;--teal-soft:#E6F6F4;--acc:#0F766E;--m1:#0F766E;--m2:#2563EB;--m3:#7C3AED;--m4:#D97706;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 1px 1px rgba(15,23,42,.03);--f-head:"IBM Plex Sans Thai",system-ui,sans-serif}
+html[data-plan="pro"] body{background:var(--bg)}
+html[data-plan="pro"] .top{background:color-mix(in srgb,#F3F5F9 85%,transparent);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line);box-shadow:none}
+html[data-plan="pro"] .mark{background:linear-gradient(135deg,#2DD4BF,#0F766E 60%,#134E4A);color:#fff;border-radius:11px;box-shadow:0 6px 16px -6px #0F766E}
+html[data-plan="pro"] .pro-b{background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff}
+html[data-plan="pro"] .panel{border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);background:var(--surface)}
+html[data-plan="pro"] .tiles{gap:12px}
+html[data-plan="pro"] .tile{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);color:var(--ink);transition:transform .12s,box-shadow .12s}
+html[data-plan="pro"] .tile:hover{transform:translateY(-2px);box-shadow:0 8px 20px -8px rgba(15,23,42,.18)}
+html[data-plan="pro"] .tile .ic{background:var(--teal-soft);color:var(--teal);border-radius:12px}
+html[data-plan="pro"] .tile h3{color:var(--ink)}html[data-plan="pro"] .tile p{color:var(--muted)}
+html[data-plan="pro"] .tile .count b{color:var(--ink)}
+html[data-plan="pro"] .btn-acc{background:var(--teal);border-color:var(--teal);box-shadow:0 6px 14px -8px var(--teal)}
+html[data-plan="pro"] .hello h2{font-weight:600;letter-spacing:-.01em}
+html[data-plan="pro"] .today{border-left:4px solid var(--teal)}
+html[data-plan="pro"] .hero{background:radial-gradient(120% 120% at 100% 0%,#2DD4BF 0%,transparent 55%),linear-gradient(135deg,#134E4A,#0F766E 60%,#115E59);color:#fff;border:0}
+.pside{display:none}
+@media (min-width:1024px){
+  html[data-plan="pro"].has-side body{padding-left:256px}
+  html[data-plan="pro"].has-side .pside{display:flex;position:fixed;left:0;top:0;bottom:0;width:256px;background:#0B1A1E;color:#AEB8CC;flex-direction:column;padding:16px 12px;gap:4px;z-index:30;overflow-y:auto}
+  html[data-plan="pro"].has-side .top .brand{visibility:hidden}
+  html[data-plan="pro"].has-side main{max-width:1180px}
+  .pside .pb{display:flex;align-items:center;gap:10px;padding:4px 8px 16px}.pside .pb .mark{width:36px;height:36px;display:grid;place-items:center}
+  .pside .pb b{color:#fff;display:block;font-size:.95rem;line-height:1.2}.pside .pb small{color:#6B778F;font-size:.72rem;letter-spacing:.04em}
+  .pside .grp{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#6B778F;padding:12px 10px 4px}
+  .pside button.nv{display:flex;align-items:center;gap:11px;width:100%;padding:9px 10px;border-radius:10px;border:0;background:none;color:#C9D2E3;font:inherit;font-size:.92rem;cursor:pointer;text-align:left;position:relative}
+  .pside button.nv:hover{background:#13272C;color:#fff}.pside button.nv[aria-current="page"]{background:#173339;color:#fff}
+  .pside button.nv[aria-current="page"]::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:#5EEAD4}
+  .pside button.nv svg{width:20px;height:20px}.pside .cnt{margin-left:auto;min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:#24434A;color:#E2E8F0;font-size:.72rem;display:grid;place-items:center;font-weight:600}
+  .pside .cnt.hot{background:#F59E0B;color:#1F1300}.pside .lk{margin-left:auto;font-size:.7rem;color:#F5B94A}
+  .pside .ft{margin-top:auto;padding:10px;border-top:1px solid #18303A;font-size:.75rem;color:#6B778F;display:flex;align-items:center;gap:8px}
+  .pside .ft button{margin-left:auto;background:#13272C;border:1px solid #1F3A41;color:#C9D2E3;border-radius:8px;padding:4px 10px;font:inherit;font-size:.75rem;cursor:pointer}
+}
+
 /* ===== ใช้ร่วม: หน้าเชื่อมชีต + ผู้ช่วยคู่มือ ===== */
 .cn-h{display:flex;gap:12px;align-items:flex-start}.cn-h>svg{width:34px;height:34px;flex:none;color:var(--acc,#5b5bd6)}
 .cn-steps{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px}.cn-steps li span{display:block;font-size:.88em;color:var(--muted)}
@@ -511,6 +577,14 @@ html[data-public] .helpfab,html.printing .helpfab{display:none}
 .hp .tabs{display:flex;gap:6px}.hp .tabs button{flex:1;display:inline-flex;gap:6px;align-items:center;justify-content:center;min-height:44px;white-space:nowrap;padding:0 8px;font-size:.92em}
 .hp .tabs button svg,.hp .linkbtn svg,.hp .alert svg{width:18px;height:18px;flex:none}.hp .linkbtn{display:inline-flex;gap:4px;align-items:center}
 .hp .btn svg{width:20px;height:20px}
+
+/* แถบเมนูซ้ายฉบับโปร (5 แอป): ชื่อร้านด้านบนยังกดกลับหน้าแรกได้ */
+html[data-plan="pro"].has-side .top .brand{visibility:visible}
+/* กล่อง "งานวันนี้" ในหน้าแรก (ใช้ทุกแอป) */
+.today .item{width:100%;text-align:left;border:0;background:none;font:inherit;color:inherit;display:flex;align-items:center;gap:12px}
+.today .ic-s{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--mute-bg);flex:none}
+.today .ic-s.bad{background:var(--bad-bg);color:var(--bad)}
+.zhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:4px 0 8px}.zhead h3{margin:0}
 
 /* ===== ร้านค้า / สต็อก ===== */
 .kbtn{text-align:left;cursor:pointer;font:inherit;color:inherit}.kbtn:active{transform:scale(.98)}.kpi.bad{border-color:var(--bad)}.kpi.bad b{color:var(--bad)}
@@ -565,6 +639,11 @@ html[data-public] .helpfab,html.printing .helpfab{display:none}
 .pick{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}.pick:first-child{border-top:0}.pick .item-main{flex:1;min-width:0}
 .pick input[type=checkbox]{width:22px;height:22px;accent-color:var(--teal,var(--acc));flex:none}.pick .input{width:64px;text-align:center}
 .demo .seg button{white-space:nowrap}
+
+/* ใบสั่งของ / นับสต็อก */
+.orow{display:flex;align-items:center;gap:10px}.orow .item-main{flex:1;min-width:0}
+.oq{display:flex;align-items:center;gap:6px;flex:none}.oq input{width:84px;text-align:right}
+.dt{width:100%;border-collapse:collapse;margin-top:12px}.dt th,.dt td{border-bottom:1px solid #ccc;padding:6px 4px;text-align:left}
 </style>
 </head>
 <body>
@@ -730,6 +809,7 @@ function ppPayload(id,amt){id=String(id||'').replace(/\D/g,'');const f=(t,v)=>t+
   const s=f('00','01')+f('01',a?'12':'11')+f('29',f('00','A000000677010111')+acc)+f('58','TH')+f('53','764')+(a?f('54',a):'')+'6304';
   return s+crc16(s)}
 const ppShow=id=>{id=String(id||'');return id.length===10?id.slice(0,3)+'-'+id.slice(3,6)+'-'+id.slice(6):id.length===13?id[0]+'-'+id.slice(1,5)+'-'+id.slice(5,10)+'-'+id.slice(10,12)+'-'+id[12]:id};
+let qrLib=null;
 const loadQR=()=>qrLib||(qrLib=new Promise((res,rej)=>{if(window.qrcode)return res(window.qrcode);const s=document.createElement('script');
   s.src='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';s.onload=()=>window.qrcode?res(window.qrcode):rej(new Error('no qr'));
   s.onerror=()=>{qrLib=null;s.remove();rej(new Error('โหลดตัวสร้าง QR ไม่ได้'))};document.head.appendChild(s)}));
@@ -779,6 +859,7 @@ function apiUrl(){
   const k=store.get(CONNECT_KEY);return k&&KEY_RE.test(k)?'https://script.google.com/macros/s/'+k+'/exec':'';
 }
 const NEED_CONNECT=!DEMO&&!apiUrl();
+{const m=document.getElementById('mark');if(m&&!m.innerHTML.trim())m.innerHTML=icon('logo')}   // โลโก้มุมบนขึ้นตั้งแต่หน้าแรก (ก่อนเชื่อมชีต / ก่อนเข้าสู่ระบบ)
 const shopLink=()=>{const k=keyOf(apiUrl());return k?location.origin+location.pathname.replace(/[^/]*$/,'')+'?k='+k:''};
 function vConnect(){
   document.documentElement.dataset.public='1';
@@ -910,6 +991,8 @@ sections:[
   'แอปไม่เก็บข้อมูลบัตรเครดิต บันทึกแค่ว่าจ่ายด้วยบัตร']}
 ],
 faq:[
+ ['ทำใบสั่งของ','เปิด "ใบสั่งของ" แอปรวมของที่เหลือถึงจุดเตือนพร้อมจำนวนที่ควรสั่ง แก้จำนวนได้ แล้วกด "ส่งทาง LINE" ให้ร้านส่ง หรือพิมพ์ใบสั่งของ'],
+ ['นับสต็อกทั้งร้าน','เปิด "นับสต็อกทั้งร้าน" (ฉบับโปร) ใส่จำนวนที่นับได้จริงทีละรายการ ยิงบาร์โค้ดเพื่อค้นได้ เว้นว่าง = ยังไม่นับ · กดบันทึกแล้วแอปปรับคงเหลือและสรุปส่วนต่างให้ · ตัวเลขที่ใส่ไว้จำในเครื่องจนกว่าจะกดบันทึก'],
  ['สแกนบาร์โค้ดไม่ติด','ให้อนุญาตกล้องในเบราว์เซอร์ เปิดไฟให้สว่าง ถือห่างประมาณ 15 ซม. หรือพิมพ์ตัวเลขใต้บาร์โค้ดแทน'],
  ['ขายเกินสต็อกได้ไหม','ได้ถ้าเจ้าของร้านเปิด "ขายได้แม้สต็อกติดลบ" ใน ตั้งค่าร้าน ไม่เปิดไว้ แอปจะเตือนไม่ให้ขาย'],
  ['สินค้ามีหลายสี หลายไซซ์','เพิ่มสินค้า → "หลายแบบ" ใส่ตัวเลือก แอปสร้างสินค้าแยกให้ทุกแบบ และหน้าขายรวมเป็นปุ่มเดียว'],
@@ -956,6 +1039,41 @@ function helpOpen(start){
   f.setAttribute('aria-label','คู่มือและคำถามที่พบบ่อย ('+BOT_NAME+')');f.innerHTML=botSvg(46)+'<span>คู่มือ</span>';f.onclick=()=>helpOpen();document.body.appendChild(f)})();
 document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-help]');if(t){e.preventDefault();helpOpen(t.dataset.help?{sec:t.dataset.help}:null)}});
 const helpRow=()=>`<button type="button" class="helprow" data-help>${botSvg(40)}<span><b>คู่มือการใช้งาน</b><span class="small muted">${BOT_NAME}พาดูทีละขั้น · คำถามที่พบบ่อย · ลิงก์ร้าน</span></span>${icon('chev')}</button>`;
+
+/* แถบเมนูด้านซ้ายของฉบับโปร (จอกว้าง 1024px ขึ้นไป) ใช้ร่วมกับแอปร้านอาหาร นัดคิว ร้านค้า ร้านซ่อม ที่พักรายวัน
+   อ่านรายการเมนูจากไทล์ในหน้าแรก (#tiles .tile[data-go]) จึงไม่ต้องเขียนเมนูซ้ำในแต่ละแอป · หน้าตาใช้ CSS .pside จากแอปหอพัก */
+(function(){
+  let NAV=[],synced=Date.now(),busyNav=false,raf=0;
+  const root=document.documentElement;
+  const grab=()=>{const T=document.querySelectorAll('#tiles>.tile[data-go]');if(!T.length)return;
+    NAV=[...T].map(t=>({go:t.dataset.go,label:((t.querySelector('h3')||t).textContent||'').trim(),ic:(t.querySelector('.ic')||{}).innerHTML||'',
+      badge:((t.querySelector('.badge')||{}).textContent||'').trim(),lock:t.classList.contains('tlock')}))};
+  const isOn=()=>{try{return PRO()&&!!ME&&!!BIZ&&!root.dataset.public&&!root.dataset.kitchen&&!['login','register','forgot','must'].includes(view.name)}catch(e){return false}};
+  const openTile=g=>{const t=document.querySelector(`#tiles>.tile[data-go="${g}"]`);if(t){t.click();return}
+    if(busyNav)return;busyNav=true;go('home');let n=0;
+    const w=setInterval(()=>{const x=document.querySelector(`#tiles>.tile[data-go="${g}"]`);if(x||++n>40){clearInterval(w);busyNav=false;if(x)x.click()}},100)};
+  function paint(){
+    const on=isOn();root.classList.toggle('has-side',on);
+    let el=document.getElementById('pside');if(!on){if(el)el.innerHTML='';return}
+    grab();
+    if(!el){el=document.createElement('aside');el.id='pside';el.className='pside';el.setAttribute('aria-label','เมนูหลัก');document.body.prepend(el)}
+    const cur=view.name==='admin'?'admin':view.name;
+    const nv=x=>`<button class="nv" data-sn="${esc(x.go)}" ${cur===x.go?'aria-current="page"':''}>${x.ic}${esc(x.label)}${x.lock?'<span class="lk">โปร</span>':x.badge?`<span class="cnt">${esc(x.badge)}</span>`:''}</button>`;
+    const work=NAV.filter(x=>x.go!=='admin'),adm=NAV.filter(x=>x.go==='admin');
+    el.innerHTML=`<div class="pb"><span class="mark">${icon('logo')}</span><div><b>${esc(BIZ.org||'')}</b><small>${esc(document.title)} · PRO</small></div></div>
+      <button class="nv" data-sn="home" ${cur==='home'?'aria-current="page"':''}>${icon('home')}หน้าแรก</button>
+      ${work.length?`<div class="grp">งานประจำวัน</div>${work.map(nv).join('')}`:''}${adm.length?`<div class="grp">จัดการ</div>${adm.map(nv).join('')}`:''}
+      <div class="ft"><span id="psync">อัปเดตเมื่อสักครู่</span><button id="prf" title="ดึงข้อมูลล่าสุดจากชีต">ดึงข้อมูลล่าสุด</button></div>`;
+    el.querySelectorAll('[data-sn]').forEach(b=>b.onclick=()=>{const g=b.dataset.sn;g==='home'?go('home'):openTile(g)});
+    document.getElementById('prf').onclick=()=>{synced=Date.now();render();toast('ดึงข้อมูลล่าสุดแล้ว')};
+  }
+  const later=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(paint)};
+  const start=()=>{const a=document.getElementById('app');if(!a)return setTimeout(start,200);
+    new MutationObserver(later).observe(a,{childList:true,subtree:true});
+    new MutationObserver(later).observe(root,{attributes:true,attributeFilter:['data-plan','data-public','data-kitchen']});later()};
+  start();
+  setInterval(()=>{const e=document.getElementById('psync');if(e){const s=Math.round((Date.now()-synced)/1e3);e.textContent=s<15?'อัปเดตเมื่อสักครู่':s<3600?'อัปเดต '+Math.round(s/60)+' นาทีที่แล้ว':'กดดึงข้อมูลล่าสุด'}},15e3);
+})();
 
 /* ===================== แอปร้านค้า / สต็อก: หน้าจอ ===================== */
 const ROLE_TH={admin:'เจ้าของร้าน',staff:'พนักงาน'};
@@ -1035,14 +1153,16 @@ function vHome(){
       ['recv','รับของเข้า','เพิ่มสต็อก บันทึกทุนใหม่','truck','',can('stock')],['bills','บิลขาย','ดูบิลย้อนหลัง พิมพ์ซ้ำ ยกเลิกบิล','receipt','',can('sell')||can('report')],
       ['close','ปิดยอดประจำวัน','นับเงินสด เทียบยอดที่ควรมี','cash',h.today&&!h.closed?'ยังไม่ปิด':'',can('sell')],
       ['credit','ลูกค้าเงินเชื่อ','ยอดค้าง รับชำระ ทวงทาง LINE','user','',can('credit')||locked('credit')],['report','รายงานกำไร','กำไร ขายดี ของไม่ขยับ CSV','chart','',can('report')||locked('report')],
-      ['labels','ป้ายราคา','พิมพ์ป้ายพร้อมบาร์โค้ด','tag','',can('stock')||locked('labels')]];
+      ['labels','ป้ายราคา','พิมพ์ป้ายพร้อมบาร์โค้ด','tag','',can('stock')||locked('labels')],
+      ['order','ใบสั่งของ','ของใกล้หมด จำนวนที่ควรสั่ง ส่ง LINE','truck',h.low?h.low+' รายการ':'',can('stock')||can('report')],
+      ['count','นับสต็อกทั้งร้าน','ใส่จำนวนที่นับได้ สรุปส่วนต่าง','list','',can('stock')||locked('report')]];
     $('#tiles').innerHTML=T.filter(t=>t[5]).map((t,i)=>{const lk=locked(t[0]);return `<button class="tile t${i%4}${lk?' tlock':''}" data-go="${t[0]}">${lk?`<span class="lockflag">${icon('lock')}โปร</span>`:''}<div class="tile-top"><span class="ic">${icon(t[3])}</span>${t[4]&&!lk?`<span class="flag">${esc(t[4])}</span>`:''}</div><div><h3>${t[1]}</h3><p>${t[2]}</p></div></button>`}).join('')
       +(isAdmin()?`<button class="tile tadm" data-go="admin"><div class="tile-top"><span class="ic">${icon('gear')}</span></div><div><h3>เจ้าของร้าน</h3><p>ภาพรวม ผู้ใช้ ตั้งค่าร้าน</p></div></button>`:'');
     app.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{const [g,f]=b.dataset.go.split(':');if(locked(g))return proInfo();g==='admin'?go('admin',{tab:'stats'}):go(g,f?{f}:{})});
     app.querySelectorAll('#tiles>.tile').forEach((t,i)=>t.style.setProperty('--i',i));countUp($('#hk'));
     if(isAdmin()&&!PRO())$('#tiles').insertAdjacentHTML('afterend',`<div class="planbar"><span>${icon('spark','pico')} แพ็กเกจฟรี · สินค้า ${h.products}/${BIZ.freeProducts} รายการ · ผู้ใช้สูงสุด ${BIZ.freeStaff} คน</span><button class="btn btn-line btn-sm" id="seepro">ดูแพ็กเกจโปร</button></div>`);
     {const sp=$('#seepro');if(sp)sp.onclick=proInfo}
-    $('#h-lists').innerHTML=(isAdmin()&&!h.products?`<section class="panel alert info"><h3>เริ่มต้นใช้งาน 3 ขั้น</h3><ol style="margin:4px 0;padding-left:20px"><li>ตรวจประเภทร้าน: <b>${esc(BIZ.typeLabel)}</b> <button class="linkbtn" id="fr-type">เปลี่ยน</button></li><li>ใส่ข้อมูลร้านและพร้อมเพย์ (เจ้าของร้าน &gt; ตั้งค่าร้าน)</li><li>เพิ่มสินค้า สแกนบาร์โค้ดจากกล่องได้เลย</li></ol><button class="btn btn-acc" id="fr-add">${icon('plus')}เพิ่มสินค้าชิ้นแรก</button></section>`:'')+(h.lowList.length?`<section class="panel"><h3>${icon('box','pico')} สินค้าใกล้หมด</h3><div class="list">${h.lowList.map(p=>`<div class="item click" data-pid="${esc(p.id)}"><div class="item-main"><b>${esc(p.name)}</b><div class="item-sub">เตือนเมื่อเหลือ ${qtyS(p.min)}</div></div><b class="late">${p.qty<=0?'หมด':qtyS(p.qty)+' '+esc(p.unit)}</b></div>`).join('')}</div></section>`:'')
+    $('#h-lists').innerHTML=(isAdmin()&&!h.products?`<section class="panel alert info"><h3>เริ่มต้นใช้งาน 3 ขั้น</h3><ol style="margin:4px 0;padding-left:20px"><li>ตรวจประเภทร้าน: <b>${esc(BIZ.typeLabel)}</b> <button class="linkbtn" id="fr-type">เปลี่ยน</button></li><li>ใส่ข้อมูลร้านและพร้อมเพย์ (เจ้าของร้าน &gt; ตั้งค่าร้าน)</li><li>เพิ่มสินค้า สแกนบาร์โค้ดจากกล่องได้เลย</li></ol><button class="btn btn-acc" id="fr-add">${icon('plus')}เพิ่มสินค้าชิ้นแรก</button></section>`:'')+(h.lowList.length?`<section class="panel"><div class="zhead"><h3>${icon('box','pico')} สินค้าใกล้หมด</h3>${can('stock')||can('report')?`<button class="btn btn-line btn-sm" data-go="order">${icon('truck')}ทำใบสั่งของ</button>`:''}</div><div class="list">${h.lowList.map(p=>`<div class="item click" data-pid="${esc(p.id)}"><div class="item-main"><b>${esc(p.name)}</b><div class="item-sub">เตือนเมื่อเหลือ ${qtyS(p.min)}</div></div><b class="late">${p.qty<=0?'หมด':qtyS(p.qty)+' '+esc(p.unit)}</b></div>`).join('')}</div></section>`:'')
       +((h.expList||[]).length?`<section class="panel"><h3>${icon('clock','pico')} ใกล้หมดอายุ</h3><div class="list">${h.expList.map(p=>`<div class="item click" data-pid="${esc(p.id)}"><div class="item-main"><b>${esc(p.name)}</b><div class="item-sub">เหลือ ${qtyS(p.qty)} ${esc(p.unit)}</div></div><b class="${p.exp<=today()?'late':''}">${esc(isoTH(p.exp))}</b></div>`).join('')}</div></section>`:'');
     {const a=$('#fr-add');if(a){a.onclick=()=>go('prods');$('#fr-type').onclick=()=>go('admin',{tab:'set'})}}
     app.querySelectorAll('#h-lists [data-pid]').forEach(x=>x.onclick=async()=>{await loadProds();const p=prod(x.dataset.pid);if(p)prodModal(p)});
@@ -1575,10 +1695,65 @@ function paneSettings(){
 }
 
 /* ---------- เส้นทาง ---------- */
+/* ---------- ใบสั่งของ: ของใกล้หมด → จำนวนที่ควรสั่ง → ส่ง LINE ให้ร้านส่ง / พิมพ์ ---------- */
+function vOrder(){
+  app.innerHTML=`<div class="stack">${backHead('ใบสั่งของ','ของที่เหลือถึงจุดเตือน · แก้จำนวนได้ก่อนส่ง','truck')}<div id="or-b" class="stack">${loadingList}</div></div>`;
+  run('apiReorder',tok()).then(L=>{const el=$('#or-b');if(!el)return;
+    if(!L.length){el.innerHTML='<div class="empty">ยังไม่มีของใกล้หมด</div>';return}
+    const want={};L.forEach(p=>want[p.id]=p.want);
+    const msg=()=>{const s=BIZ.shop||{},rows=L.filter(p=>num(want[p.id])>0);
+      return `ใบสั่งของ ${BIZ.org}\nวันที่ ${isoTH(today())}\n\n${rows.map((p,i)=>`${i+1}. ${p.name} ${qtyS(want[p.id])} ${p.unit}`).join('\n')}\n\nรวม ${rows.length} รายการ${s.phone?'\nติดต่อร้าน '+s.phone:''}`};
+    const sum=()=>{const c=L.reduce((a,p)=>a+(p.cost!==undefined?num(want[p.id])*p.cost:0),0);$('#or-s').innerHTML=L[0].cost!==undefined?`ทุนโดยประมาณ <b>${baht(Math.round(c))}</b> บาท`:'';$('#or-l').href='https://line.me/R/msg/text/?'+encodeURIComponent(msg())};
+    el.innerHTML=`<section class="panel"><div class="list">${L.map(p=>`<div class="item orow"><div class="item-main"><b>${esc(p.name)}</b><div class="item-sub">เหลือ ${p.qty<=0?'<b class="late">หมด</b>':qtyS(p.qty)+' '+esc(p.unit)} · เตือนเมื่อเหลือ ${qtyS(p.min)}${p.cost!==undefined?' · ทุน '+baht(p.cost):''}</div></div>
+        <label class="oq"><span class="small muted">สั่ง</span><input class="input mono" data-w="${esc(p.id)}" inputmode="decimal" value="${p.want}"><span class="small">${esc(p.unit)}</span></label></div>`).join('')}</div>
+      <div class="small muted" style="margin-top:6px">จำนวนแนะนำ = เติมให้ได้ 2 เท่าของจุดเตือน · ใส่ 0 ถ้าไม่สั่ง</div><div class="small" id="or-s"></div></section>
+      <div class="row2"><a class="btn btn-acc" id="or-l" target="_blank" rel="noopener" href="#">${icon('chat')}ส่งทาง LINE</a><button class="btn btn-line" id="or-c">${icon('copy')}คัดลอก</button></div>
+      <button class="btn btn-line" id="or-p">${icon('print')}พิมพ์ใบสั่งของ</button>
+      ${can('stock')?`<div class="small muted">ของมาถึงแล้ว ไปที่ "รับของเข้า" เพื่อเพิ่มสต็อกและบันทึกทุนใหม่</div>`:''}`;
+    el.querySelectorAll('[data-w]').forEach(i=>i.oninput=()=>{want[i.dataset.w]=i.value;sum()});sum();
+    $('#or-c').onclick=async()=>{try{await navigator.clipboard.writeText(msg());toast('คัดลอกแล้ว')}catch(e){toast('คัดลอกไม่ได้ ใช้ปุ่ม LINE แทน')}};
+    $('#or-p').onclick=()=>{const rows=L.filter(p=>num(want[p.id])>0);
+      docModal('ใบสั่งของ',`<div class="doc"><h2 style="margin:0">ใบสั่งของ</h2><div>${esc(BIZ.org)} · วันที่ ${esc(isoTH(today()))}</div><table class="dt"><thead><tr><th>#</th><th>สินค้า</th><th style="text-align:right">จำนวน</th><th>หน่วย</th></tr></thead><tbody>${rows.map((p,i)=>`<tr><td>${i+1}</td><td>${esc(p.name)}</td><td style="text-align:right">${qtyS(want[p.id])}</td><td>${esc(p.unit)}</td></tr>`).join('')}</tbody></table><div style="margin-top:24px">ผู้สั่ง ........................................</div></div>`,'ใบสั่งของ '+today())};
+  }).catch(e=>{const el=$('#or-b');if(el)el.innerHTML=errBox(e.message)});
+}
+/* ---------- นับสต็อกทั้งร้าน (โปร): ใส่จำนวนที่นับได้ เว้นว่าง = ยังไม่นับ ---------- */
+function vCount(){
+  if(locked('report'))return proInfo(),go('home');
+  const CK='stCount';let got={};try{got=JSON.parse(store.get(CK)||'{}')||{}}catch(e){got={}}
+  const keep=()=>{try{store.set(CK,JSON.stringify(got))}catch(e){}};
+  app.innerHTML=`<div class="stack">${backHead('นับสต็อกทั้งร้าน','นับของจริงบนชั้น แล้วใส่จำนวน · เว้นว่างไว้ = ยังไม่นับ','list')}
+    <input class="input" id="ct-q" placeholder="ค้นชื่อ หรือยิงบาร์โค้ด"><div class="chips" id="ct-c"></div>
+    <div class="small" id="ct-s"></div><div id="ct-b" class="list">${loadingList}</div>
+    <div class="field"><label for="ct-n">หมายเหตุ <span class="opt">(ไม่บังคับ)</span></label><input class="input" id="ct-n" maxlength="100" placeholder="เช่น นับสิ้นเดือน"></div>
+    <div id="ct-e"></div><button class="btn btn-acc btn-block big-act" id="ct-ok">${icon('check')}บันทึกผลการนับ</button>
+    <div class="small muted">แอปจำตัวเลขที่ใส่ไว้ในเครื่องนี้ ปิดหน้าแล้วกลับมานับต่อได้ จนกว่าจะกดบันทึก</div></div>`;
+  let cat='',q='';
+  loadProds(true).then(P=>{const L=P.filter(p=>p.on!==false),cats=[...new Set(L.map(p=>p.cat||'อื่น ๆ'))];
+    $('#ct-c').innerHTML=[['','ทั้งหมด'],...cats.map(c=>[c,c])].map(([k,l])=>`<button class="chip" data-c="${esc(k)}" aria-pressed="${k===cat}">${esc(l)}</button>`).join('');
+    const stat=()=>{const n=Object.keys(got).filter(k=>String(got[k]).trim()!=='').length,diff=L.filter(p=>String(got[p.id]??'').trim()!==''&&num(got[p.id])!==p.qty).length;
+      $('#ct-s').innerHTML=`นับแล้ว <b>${n}</b>/${L.length} รายการ · ไม่ตรงกับในแอป <b style="color:${diff?'var(--bad)':'var(--ok)'}">${diff}</b>`};
+    const paint=()=>{const qq=q.trim().toLowerCase(),R=L.filter(p=>(!cat||(p.cat||'อื่น ๆ')===cat)&&(!qq||p.name.toLowerCase().includes(qq)||String(p.bar||'').toLowerCase()===qq||p.id.toLowerCase()===qq)).slice(0,300);
+      $('#ct-b').innerHTML=R.map(p=>{const v=got[p.id]??'',d=String(v).trim()!==''?num(v)-p.qty:0;return `<div class="item orow"><div class="item-main"><b>${esc(p.name)}</b><div class="item-sub">ในแอป ${qtyS(p.qty)} ${esc(p.unit)}${String(v).trim()!==''?` · <b style="color:${d?'var(--bad)':'var(--ok)'}">${d?(d>0?'+':'')+qtyS(d):'ตรง'}</b>`:''}</div></div>
+        <label class="oq"><span class="small muted">นับได้</span><input class="input mono" data-k="${esc(p.id)}" inputmode="decimal" value="${esc(v)}"><span class="small">${esc(p.unit)}</span></label></div>`}).join('')||'<div class="empty">ไม่พบสินค้า</div>';
+      $('#ct-b').querySelectorAll('[data-k]').forEach(i=>i.onchange=()=>{got[i.dataset.k]=i.value;keep();stat();paint()});stat()};
+    $('#ct-c').querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{cat=b.dataset.c;$('#ct-c').querySelectorAll('[data-c]').forEach(x=>x.setAttribute('aria-pressed',x===b));paint()});
+    $('#ct-q').oninput=()=>{q=$('#ct-q').value;paint()};
+    $('#ct-q').onkeydown=e=>{if(e.key==='Enter'){const hit=BARS[$('#ct-q').value.trim().toUpperCase()];if(hit){q=hit.p.name;$('#ct-q').value=q;paint();const i=$('#ct-b [data-k]');if(i)i.focus()}}};
+    paint();
+    $('#ct-ok').onclick=async e=>{const b=e.currentTarget,lines=Object.keys(got).filter(k=>String(got[k]).trim()!=='').map(k=>({id:k,qty:got[k]}));
+      if(!lines.length)return $('#ct-e').innerHTML=errBox('ยังไม่ได้ใส่จำนวนที่นับได้');
+      if(!confirm(`บันทึกผลการนับ ${lines.length} รายการ แอปจะปรับคงเหลือให้ตรงกับที่นับได้`))return;busy(b,true);
+      try{const r=await run('apiStocktake',tok(),{lines:lines,note:$('#ct-n').value});got={};keep();PRODS=null;
+        const m=modal(`<h2>บันทึกผลการนับแล้ว</h2><div class="paysum"><div><span>นับ</span><b>${r.n} รายการ</b></div><div><span>ตรง</span><b>${r.same}</b></div><div><span>มากกว่าในแอป</span><b>${r.plus}</b></div><div class="${r.minus?'bad':''}"><span>น้อยกว่าในแอป</span><b>${r.minus}</b></div>${r.value!==undefined?`<div class="big"><span>มูลค่าส่วนต่าง (ทุน)</span><b>${money(r.value)}</b></div>`:''}</div>
+          <div class="list">${r.list.slice(0,50).map(x=>`<div class="item"><div class="item-main"><b>${esc(x.name)}</b><div class="item-sub">${qtyS(x.before)} → ${qtyS(x.after)} ${esc(x.unit)}</div></div><b style="color:${x.delta<0?'var(--bad)':'var(--ok)'}">${x.delta>0?'+':''}${qtyS(x.delta)}</b></div>`).join('')}</div>
+          <button class="btn btn-acc btn-block" id="ct-x">เสร็จ</button>`);m.el.querySelector('#ct-x').onclick=()=>{m.close();go('home')}}
+      catch(x){$('#ct-e').innerHTML=errBox(x.message);busy(b,false)}};
+  }).catch(e=>{const el=$('#ct-b');if(el)el.innerHTML=errBox(e.message)});
+}
 function render(){
   if(!BIZ)return;paintHead();closeScanner();
   if(!ME&&!['login','register','forgot'].includes(view.name))view={name:'login'};
-  ({login:vLogin,register:vRegister,forgot:vForgot,must:vMust,home:vHome,pos:vPos,prods:vProds,recv:vRecv,moves:vMoves,bills:vBills,close:vClose,credit:vCredit,report:vReport,labels:vLabels,admin:vAdmin})[view.name]();
+  ({login:vLogin,register:vRegister,forgot:vForgot,must:vMust,home:vHome,pos:vPos,prods:vProds,recv:vRecv,moves:vMoves,bills:vBills,close:vClose,credit:vCredit,report:vReport,labels:vLabels,order:vOrder,count:vCount,admin:vAdmin})[view.name]();
   bindBack();bindLogout();app.querySelectorAll('[data-privacy]').forEach(b=>b.onclick=showPrivacy);window.scrollTo(0,0);
 }
 function go(name,o){view=Object.assign({name},o||{});render()}
